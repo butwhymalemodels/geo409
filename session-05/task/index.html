@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Module 05 Template</title>
+    <title>Geo409 Task D</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -45,6 +45,11 @@
             color: #001323;
         }
         /* Additional style rules go here! */
+        
+        .capitol{
+           fill: red;   
+        }
+
     </style>
 </head>
 
@@ -69,7 +74,7 @@
 
         var options = {
             center: [38.0489,-84.5025],
-            zoom: 13
+            zoom: 8
         }
         map = L.map(targetDiv, options);
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
@@ -80,61 +85,27 @@
         });
         map.addLayer(tiles);
         
-        var cities = ["Franfort", "Louisville", "Lexington"];
-        var city = cities[0];
-        console.log(city);
+        // begin writing/editing Task D code here
         
-        var years = [2010, 2011, 2022, 2013, 2014];
-        console.log(years);
-        years[2] = 2012;
-        console.log(years);
-        
-        var counties = [];
-        console.log(counties);
-        counties[0] = "Adair";
-        counties[1] = "Allen";
-        console.log(counties);
-        counties[5] = "Anderson";
-        console.log(counties);
-        
-        var yearsNum = years.length;
-        console.log(yearsNum);
-        
-        console.log("before the for loop");
-        for (var i = 0; i < 5; i++) {
-            console.log(i); //outputs numbers from 0 to 4
-        }
-        console.log("after the for loop");
-        
-        for (var i =0; i < cities.length; i++) {
-            console.log(i); //output the surrent value of i
-            console.log(cities[i]); // use i to access an index of the Array
+
+        for(/* add code here */) {
+            
+            var popup = "<b>"+/* add code here */+"</b><br>"
+                            +"<b>population</b>: "+/* add code here */;
+
+            if(/* add code here */ == true) {
+               
+                popup += "<br>Capitol of the Commonwealth of Kentucky"; 
+                
+            } 
+            
+            L.marker(cityCoords[i]).addTo(map)
+                .bindPopup(popup);
         }
         
-        var newArray = []; //define an empty array
-        for (var i = 0; i < 10; i++) {
-            newArray[i] = i + 1;
-        }
-        console.log(newArray); 
-        console.log(i);
+        // end writing/editing Task D code here
         
-        var i = 0;
-        while (i < cities.length){
-            console.log(i);
-            console.log(cities[i]);
-            i++
-        }
-        var iguanaEyes = 1;
-        if(iguanaEyes == 2) { //if this condition is met
-            console.log('the Iquana has two dreamy eyes');
-        } else if (iguanaEyes == 1) {//otherwise if this condition is met
-            console.log('ohno! The Iquana has lost a dreamy eye.'); //this statement is executed
-        } else { //finally, if the previous conditions have not been met, this block statement runs
-            console.log('The Iquana has some other then two of dreamy eyes.');
-        }
-        // continue JavaScript coding here!
-        
-        
+          
     </script>
     
 </body>
