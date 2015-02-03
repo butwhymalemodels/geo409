@@ -87,33 +87,33 @@
         
         var cities = ["Lexington", "Frankfort", "Louisville"];
         var cityCoords = [
-            [38.0297, 38.1970, 38.2500],
-            [-84.4947, -84.8630, -85.7667]
+            [38.0297, -84.4947],
+            [38.1970, -84.8630],
+            [38.2500, -85.7667]
         ];
         var cityPops = [308428, 27453, 1284195];
-        var cityCapital = [false, true, false];
+        var cityCapitol = [false, true, false];
         
         // begin writing/editing Task D code here
         
 
         for (var i = 0; i < cities.length; i++ ) {
-            console.log(cities[i]);
         
             
-            var popup = "<b>"+"console.log(cities[i])";"</b><br>"
-                            +"<b>population</b>: "+"console.log(cityPops[i])";
-        }
+            var popup = "<b>"+cities[i];"</b><br>"
+                            +"<b>population</b>: "+cityPops[i];
+        
 
-            if ( cityCapital == true) {
+            if ( cityCapitol == true) {
                
                 popup += "<br>Capitol of the Commonwealth of Kentucky"; 
                 
-             
+            }
             
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
         }
-        ;
+        
         // end writing/editing Task D code here
         
           
