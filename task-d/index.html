@@ -17,7 +17,7 @@
             padding: 0;
             background: whitesmoke;
             font-family: Lato, sans-serif;
-            color: #0D0000;
+            color: #000;
         }
         header {
             padding: 6px 10%;
@@ -25,11 +25,11 @@
         h1 {
             display: inline-block;
             margin-right: 20px;
-            color: #001323;
+            color: #006ac4;
         }
         h2 {
             display: inline-block;
-            color: #001323;
+            color: #00dbdb;
         }
         #map {
             width: 80%;
@@ -42,7 +42,7 @@
         }
         p {
             font-size: 1em;
-            color: #001323;
+            color: #002f57;
         }
         /* Additional style rules go here! */
         
@@ -55,16 +55,17 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>Cities on I-64</h1>
+        <h2>The Ones That Don't Suck</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map authored by Vanessa Koenigsmark</p>
+        <p>This map is pretty much the dopest thing you've ever laid eyes on. Truth.</p>
+        <p>Even those who speak gibberish agree. Here's what a native gibberish speaker had to say:
+            <br>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien."</br>
         </p>
     </footer>
 
@@ -100,11 +101,11 @@
         for (var i = 0; i < cities.length; i++ ) {
         
             
-            var popup = "<b>"+cities[i];"</b><br>"
-                            +"<b>population</b>: "+cityPops[i];
+            var popup = "<b>"+cities[i] + "</b><br>"
+                            + "<b>population</b>: " +cityPops[i];
         
 
-            if ( cityCapitol == true) {
+            if ( cityCapitol[i] == true) {
                
                 popup += "<br>Capitol of the Commonwealth of Kentucky"; 
                 
