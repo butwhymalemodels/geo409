@@ -85,24 +85,35 @@
         });
         map.addLayer(tiles);
         
+        var cities = ["Lexington", "Frankfort", "Louisville"];
+        var cityCoords = [
+            [38.0297, 38.1970, 38.2500],
+            [-84.4947, -84.8630, -85.7667]
+        ];
+        var cityPops = [308428, 27453, 1284195];
+        var cityCapital = [false, true, false];
+        
         // begin writing/editing Task D code here
         
 
-        for(/* add code here */) {
+        for (var i = 0; i < cities.length; i++ ) {
+            console.log(cities[i]);
+        
             
-            var popup = "<b>"+/* add code here */+"</b><br>"
-                            +"<b>population</b>: "+/* add code here */;
+            var popup = "<b>"+"console.log(cities[i])";"</b><br>"
+                            +"<b>population</b>: "+"console.log(cityPops[i])";
+        }
 
-            if(/* add code here */ == true) {
+            if ( cityCapital == true) {
                
                 popup += "<br>Capitol of the Commonwealth of Kentucky"; 
                 
-            } 
+             
             
             L.marker(cityCoords[i]).addTo(map)
                 .bindPopup(popup);
         }
-        
+        ;
         // end writing/editing Task D code here
         
           
