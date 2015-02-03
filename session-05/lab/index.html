@@ -84,11 +84,6 @@
         var city = cities[0];
         console.log(city);
         
-        var years = [2010, 2011, 2022, 2013, 2014];
-        console.log(years);
-        years[2] = 2012;
-        console.log(years);
-        
         var counties = [];
         console.log(counties);
         counties[0] = "Adair";
@@ -96,9 +91,6 @@
         console.log(counties);
         counties[5] = "Anderson";
         console.log(counties);
-        
-        var yearsNum = years.length;
-        console.log(yearsNum);
         
         console.log("before the for loop");
         for (var i = 0; i < 5; i++) {
@@ -131,6 +123,22 @@
             console.log('ohno! The Iquana has lost a dreamy eye.'); //this statement is executed
         } else { //finally, if the previous conditions have not been met, this block statement runs
             console.log('The Iquana has some other then two of dreamy eyes.');
+        }
+        var testCity = "Louisville";
+        for (var i = 0; i <= cities.length; i++) {
+            if (cities[i] == testCity) {
+                console.log (testCity + " is found in the city Array!");
+            } else {
+                console.log(testCity + " was not found within the Array at index" + i + "!");
+            }
+        }
+        var years = [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015];
+        for (var i = 0; i<= years.length; i++) {
+            if (years [i] == 2012) {
+                break;
+            } else {
+                console.log(years[i]);
+            }
         }
         // continue JavaScript coding here!
         
