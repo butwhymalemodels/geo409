@@ -88,17 +88,16 @@
         var louArea = 399; 
         var frankArea = 14.63;
         
-        prepareData(lexArea); 
-        prepareData(louArea);
-        prepareData(frankArea);
+        prepareData(lexArea, louArea, frankArea); 
         
         function prepareData(lexArea, louArea, frankArea) {/* include 2 more parameters here */
+            
             
             var cities = ["Lexington", "Louisville", "Frankfort"]; /* include 2nd and 3rd city names */
             var cityCoords = [
                 [38.0297, -84.4947], 
                 [38.2500, -85.7667],/* include 2nd city lat/lon here */
-                [38.1970, -848630]/* include 3rd city lat/lon here */
+                [38.1970, -84.8630]/* include 3rd city lat/lon here */
                 
             ];
             var cityPops = [308428, 1262261, 27453]; /* include 2nd and 3rd city pops here */
@@ -116,13 +115,9 @@
             
             for(var i = 0; i < cities.length; i++) {
 
-                var density = calcPopDensity(cityPops [i], cityAreas [i], units);
-                return [density]
-                
-                
-                
-                
-        }
+                var density = calcPopDensity(cityPops[i], cityAreas[i], units);
+//                var density = 1;
+            
                 /*var density =  call a function named calcPopDensity here, passing
                                  the city population and area as arguments, and assign
                                  return value to the "density" variable */
@@ -133,13 +128,22 @@
                 L.marker(cityCoords[i]).addTo(map)
                     .bindPopup(popup);
                 
-            
-        
-        
             }
         
-        function calcPopDensity() {
-            return [density];
+        }
+        
+        
+        function calcPopDensity (cityPops, cityArea, units) {
+            if (units=='miles') {
+                var awesome = cityPops / cityArea;
+                return awesome
+            } else  {
+                var awesome = cityPops / (cityArea*2.589);
+                return awesome
+                
+            }
+        }
+            
     
         
         // write a function named calcPopDensity which accepts two arguments from the caller, the  
