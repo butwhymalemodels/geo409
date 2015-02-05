@@ -85,22 +85,23 @@
         // begin writing/editing Task E code here
         
         var lexArea = 285.5;
-        // create a second variable for a second city's area here
-        // create a third variable for a third city's area here
+        var louArea = 399; 
+        var frankArea = 14.63;
         
-        prepareData(lexArea); // modify function call to pass 2 additional
-                              // arguments
+        prepareData(lexArea); 
+        prepareData(louArea);
+        prepareData(frankArea);
         
-        function prepareData(lexArea) { /* include 2 more parameters here */
+        function prepareData(lexArea, louArea, frankArea) {/* include 2 more parameters here */
             
-            var cities = ["Lexington"]; /* include 2nd and 3rd city names */
+            var cities = ["Lexington", "Louisville", "Frankfort"]; /* include 2nd and 3rd city names */
             var cityCoords = [
-                [38.0297, -84.4947] 
-                /* include 2nd city lat/lon here */
-                /* include 3rd city lat/lon here */
+                [38.0297, -84.4947], 
+                [38.2500, -85.7667],/* include 2nd city lat/lon here */
+                [38.1970, -848630]/* include 3rd city lat/lon here */
                 
             ];
-            var cityPops = [308428]; /* include 2nd and 3rd city pops here */
+            var cityPops = [308428, 1262261, 27453]; /* include 2nd and 3rd city pops here */
             
             var cityAreas = [lexArea]; /* include 2nd and 3rd city areas */
                     

@@ -106,6 +106,16 @@
         var calculatedArea = calcAreaRect(width,height);
         console.log(calculatedArea);
         
+        function outerFunction(message) {
+            console.log(message)
+            var innerFunction = function(message) {
+                
+                console.log(message)
+            }
+            innerFunction("I'm inside!");
+        }
+        outerFunction("hi there");
+        
         
         // continue JavaScript coding here!
         
