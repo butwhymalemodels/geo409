@@ -116,18 +116,31 @@
             
             for(var i = 0; i < cities.length; i++) {
 
+                var density = calcPopDensity(cityPops [i], cityAreas [i], units);
+                return [density]
+                
+                
+                
+                
+        }
                 /*var density =  call a function named calcPopDensity here, passing
                                  the city population and area as arguments, and assign
                                  return value to the "density" variable */
 
                 var popup = "<b>"+cities[i]+"</b><br>"
-                                //+"<b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
+                                +"<b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
 
                 L.marker(cityCoords[i]).addTo(map)
                     .bindPopup(popup);
                 
+            
+        
+        
             }
-        }
+        
+        function calcPopDensity() {
+            return [density];
+    
         
         // write a function named calcPopDensity which accepts two arguments from the caller, the  
         // population and the area of a single city. The function should calculate the density
