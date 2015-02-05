@@ -103,14 +103,14 @@
             ];
             var cityPops = [308428, 1262261, 27453]; /* include 2nd and 3rd city pops here */
             
-            var cityAreas = [lexArea]; /* include 2nd and 3rd city areas */
+            var cityAreas = [lexArea, louArea, frankArea]; /* include 2nd and 3rd city areas */
                     
-            mapCities(cities, cityCoords); // modify function call to pass 2 additional
+            mapCities(cities, cityCoords, cityPops, cityAreas); // modify function call to pass 2 additional
                                            // arguments
             
         }
             
-        function mapCities(cities, cityCoords) { /* include 2 more parameters here */
+        function mapCities(cities, cityCoords, cityPops, cityAreas) { /* include 2 more parameters here */
             
             var units = 'miles';
             
