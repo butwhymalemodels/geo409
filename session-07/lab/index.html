@@ -86,15 +86,21 @@
             age: 8,
             eyes: "dreamy",
             questForWorldDomination: true,
+            invasionPlans: function(inData) {
+                console.log(inData);
+            }
         }
-        console.log(iguana.weight);
-        console.log(iguana.age);
         
-        iguana.weight = 5.2;
-        iguana.age = 9;
+        var lexData = {
+            lat: 38.23,
+            lon: -89.21,
+            name: "Lexington",
+            pop: 821325
+            
+        }
         
-        console.log(iguana.weight);
-        console.log(iguana.age);
+        iguana.invasionPlans(lexData);
+        
         // continue JavaScript coding here!
         
         
