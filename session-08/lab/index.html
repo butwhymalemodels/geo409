@@ -64,14 +64,17 @@
     </footer>
 
     <script>
-        var map;
         var targetDiv = 'map';
-
+        var mapCenter = L.latLng(38.04,-96.5025);
         var options = {
-            center: [38.0489,-84.5025],
-            zoom: 13
+            center: mapCenter,
+            zoom: 4
         }
-        map = L.map(targetDiv, options);
+        
+        var map = L.map('map' , options);
+        var otherCity = L.latLng(38.1489,-96.5125);
+        console.log(mapCenter.distanceTo(otherCity));
+        
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
             attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
             subdomains: '0123',
@@ -79,10 +82,7 @@
             maxZoom: 18
         });
         map.addLayer(tiles);
-        var map = L.map('map', {
-            center : [51.505, -0.09],
-            zoom:13
-        });
+        
         // continue JavaScript coding here!
         
         
