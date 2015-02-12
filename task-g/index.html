@@ -83,7 +83,7 @@
         var clickCoor = e.latlng;
         var clickLoc = [clickCoor.lat, clickCoor.lng];
 //        console.log(clickLoc);
-        var distanceClick = redIguana.distanceTo(clickLoc);
+        var distanceClick = redIguana.distanceTo(clickCoor);
         console.log(distanceClick);
         var bounds = map.getBounds();
         console.log(bounds);
