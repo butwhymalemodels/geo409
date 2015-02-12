@@ -65,15 +65,29 @@
 
     <script>
         var targetDiv = 'map';
-        var mapCenter = L.latLng(38.04,-96.5025);
         var options = {
-            center: mapCenter,
-            zoom: 4
+            center: [38.0489,-96.5025],
+            zoom: 4,
+            minZoom:4,
+            maxZoom:7,
+            dragging: false,
+            zoomControl: false
         }
-        
         var map = L.map('map' , options);
-        var otherCity = L.latLng(38.1489,-96.5125);
-        console.log(mapCenter.distanceTo(otherCity));
+        
+        map.on('click', function(e) {
+            console.log(e.latlng);
+        });
+        var center = map.getCenter();
+        console.log(center.lat, center.lng);
+        var zoom = map.getZoom();
+        console.log(zoom);
+        var bounds = map.getBounds();
+        
+      
+        var bottomLeft = bounds.getSouthWest();
+        console.log(bottomLeft.lat, bottomLeft.lng);
+        console.log(bounds);
         
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
             attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
@@ -81,7 +95,8 @@
             minZoom: 2,
             maxZoom: 18
         });
-        map.addLayer(tiles);
+        var OpenStreetMap_Mapnik = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'});
+        map.addLayer(OpenStreetMap_Mapnik);
         
         // continue JavaScript coding here!
         
