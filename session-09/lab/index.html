@@ -165,99 +165,99 @@
 
 // ----------
         
+//        var iguanaRestaurants = L.layerGroup();
+//        var redIguana = L.circle([40.7718,-111.9124], 400);
+//        redIguana.addTo(iguanaRestaurants);
+//        var blueIguana = L.circle([40.7657, -111.8930], 300);
+//        blueIguana.addTo(iguanaRestaurants);
+//        iguanaRestaurants.addTo(map);
+//        
+//        iguanaRestaurants.eachLayer(function(layer) {
+//            console.log(layer);
+//        });
+
+// ----------
+//        var iguanaRestaurants = L.layerGroup();
+//        var redIguana = L.circle([40.7718,-111.9124], 400);
+//        redIguana.addTo(iguanaRestaurants);
+//        var blueIguana = L.circle([40.7657, -111.8930], 300);
+//        blueIguana.addTo(iguanaRestaurants);
+//        iguanaRestaurants.addTo(map);
+//        
+//        iguanaRestaurants.eachLayer(function(layer) {
+//            layer.on('mouseover', function(e) {
+//               e.target.setStyle({
+//                   color: 'yellow',
+//                   fillColor: 'yellow'
+//               });
+//            });
+//            layer.on('mouseout', function(e) {
+//                e.target.setStyle({
+//                   color: '#03f',
+//                   fillColor: '#03f'
+//                });
+//            });
+//        });
+        
+// ----------
+//        
+//        var iguanaRestaurants = L.layerGroup();
+//        var redIguana = L.circle([40.7718,-111.9124], 400);
+//        redIguana.addTo(iguanaRestaurants);
+//        var blueIguana = L.circle([40.7657, -111.8930], 300);
+//        blueIguana.addTo(iguanaRestaurants);
+//        iguanaRestaurants.addTo(map);
+//        
+//        iguanaRestaurants.eachLayer(function(layer) {
+//            layer.on('mouseover', function(e) {
+//               e.target.setStyle({
+//                   color: 'yellow',
+//                   fillColor: 'yellow'
+//               });
+//            });
+//            layer.on('mouseout', function(e) {
+//                e.target.setStyle({
+//                   color: '#03f',
+//                   fillColor: '#03f'
+//                });
+//            });
+//        });
+//        
+
+// ----------
+        
         var iguanaRestaurants = L.layerGroup();
-        var redIguana = L.circle([40.7718,-111.9124], 400);
+        var redIguanaOptions = {
+            color: 'red',
+            fillColor: 'red'
+        };
+        var blueIguanaOptions = {
+           color: '#03f',
+           fillColor: '#03f'
+        };
+        var redIguana = L.circle([40.7718,-111.9124], 400, redIguanaOptions);
+        redIguana.color = 'red';
         redIguana.addTo(iguanaRestaurants);
-        var blueIguana = L.circle([40.7657, -111.8930], 300);
+        var blueIguana = L.circle([40.7657, -111.8930], 300, blueIguanaOptions);
+        blueIguana.color = 'blue';
         blueIguana.addTo(iguanaRestaurants);
         iguanaRestaurants.addTo(map);
         
         iguanaRestaurants.eachLayer(function(layer) {
-            console.log(layer);
+            layer.on('mouseover', function(e) {
+               e.target.setStyle({
+                   color: 'yellow',
+                   fillColor: 'yellow'
+               });
+            });
+            layer.on('mouseout', function(e) {
+                if(e.target.color == 'red') {
+                    e.target.setStyle(redIguanaOptions);
+                } else if (e.target.color == 'blue') {
+                     e.target.setStyle(blueIguanaOptions);      
+                }
+            });
         });
-
-// ----------
-//        var iguanaRestaurants = L.layerGroup();
-//        var redIguana = L.circle([40.7718,-111.9124], 400);
-//        redIguana.addTo(iguanaRestaurants);
-//        var blueIguana = L.circle([40.7657, -111.8930], 300);
-//        blueIguana.addTo(iguanaRestaurants);
-//        iguanaRestaurants.addTo(map);
-//        
-//        iguanaRestaurants.eachLayer(function(layer) {
-//            layer.on('mouseover', function(e) {
-//               e.target.setStyle({
-//                   color: 'yellow',
-//                   fillColor: 'yellow'
-//               });
-//            });
-//            layer.on('mouseout', function(e) {
-//                e.target.setStyle({
-//                   color: '#03f',
-//                   fillColor: '#03f'
-//                });
-//            });
-//        });
-        
-// ----------
-        
-//        var iguanaRestaurants = L.layerGroup();
-//        var redIguana = L.circle([40.7718,-111.9124], 400);
-//        redIguana.addTo(iguanaRestaurants);
-//        var blueIguana = L.circle([40.7657, -111.8930], 300);
-//        blueIguana.addTo(iguanaRestaurants);
-//        iguanaRestaurants.addTo(map);
-//        
-//        iguanaRestaurants.eachLayer(function(layer) {
-//            layer.on('mouseover', function(e) {
-//               e.target.setStyle({
-//                   color: 'yellow',
-//                   fillColor: 'yellow'
-//               });
-//            });
-//            layer.on('mouseout', function(e) {
-//                e.target.setStyle({
-//                   color: '#03f',
-//                   fillColor: '#03f'
-//                });
-//            });
-//        });
-        
-
-// ----------
-        
-//        var iguanaRestaurants = L.layerGroup();
-//        var redIguanaOptions = {
-//            color: 'red',
-//            fillColor: 'red'
-//        };
-//        var blueIguanaOptions = {
-//           color: '#03f',
-//           fillColor: '#03f'
-//        };
-//        var redIguana = L.circle([40.7718,-111.9124], 400, redIguanaOptions);
-//        redIguana.color = 'red';
-//        redIguana.addTo(iguanaRestaurants);
-//        var blueIguana = L.circle([40.7657, -111.8930], 300, blueIguanaOptions);
-//        blueIguana.color = 'blue';
-//        blueIguana.addTo(iguanaRestaurants);
-//        iguanaRestaurants.addTo(map);
-//        
-//        iguanaRestaurants.eachLayer(function(layer) {
-//            layer.on('mouseover', function(e) {
-//               e.target.setStyle({
-//                   color: 'yellow',
-//                   fillColor: 'yellow'
-//               });
-//            });
-//            layer.on('mouseout', function(e) {
-//                if(e.target.color == 'red') {
-//                    e.target.setStyle(redIguanaOptions);
-//                } else if (e.target.color == 'blue') {
-//                     e.target.setStyle(blueIguanaOptions);      
-//                }
-//            });
-//        });
   
     </script>
     
