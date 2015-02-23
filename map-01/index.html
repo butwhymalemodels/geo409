@@ -193,10 +193,11 @@
         map.on('click', function(e) {  // keep this code
 
 // uncomment this code after step seven is finished          
-//            if(map.hasLayer(marker)) {               
-//                map.removeLayer(marker);
-//            }
-
+            if(map.hasLayer(marker)) {               
+                map.removeLayer(marker);
+            }
+            marker = new L.marker(e.latlng);
+            map.addLayer(marker);
 //              step seven here            
 //              step eight here
             
