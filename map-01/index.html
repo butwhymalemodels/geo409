@@ -167,12 +167,12 @@
         
         
         var styleOne = {
-            color : '#83ffbc',
-            fillcolor: '#83ffbc'
+            color : '#17cc6a',
+            fillcolor: '#17cc6a'
         };
         var styleTwo = {
-            color : '#ff652c',
-            fillcolor: '#ff652c'
+            color : '#fa4f0f',
+            fillcolor: '#fa4f0f'
         };
 //      steps 3 here
 //      steps 4-6  here
@@ -184,9 +184,8 @@
             var iguanaCircles = L.circle (L.latLng(iguanaData.coordinates), iguanaData.properties.size);
 //            console.log(iguanaCircles);
             iguanaCircles.addTo(iguanaGroup);
-            iguanaGroup.addTo(map);
         }
-        
+        iguanaGroup.addTo(map);
             
         var marker;  // keep this code
        
@@ -196,7 +195,7 @@
             if(map.hasLayer(marker)) {               
                 map.removeLayer(marker);
             }
-            marker = new L.marker(e.latlng);
+            marker = L.marker(e.latlng);
             map.addLayer(marker);
 //              step seven here            
 //              step eight here
@@ -206,7 +205,19 @@
         function testDistance(clickCoor) {
             
             iguanaGroup.eachLayer(function(layer) {
-                console.log(layer.distanceTo(clickCoor));
+                var middle = layer.getLatLng();
+//                console.log(middle);
+                var distance = middle.distanceTo(clickCoor);
+//                console.log(distance);
+                var radius = layer.getRadius();
+//                console.log(radius);
+                var zone = (distance - radius);
+//                console.log(zone);
+                if (zone < 2200) {
+                    layer.setStyle(styleTwo); 
+                } else {
+                    layer.setStyle(styleOne);
+                }
 //              step 9 here
 //              step 10 here
             });
