@@ -67,6 +67,15 @@
 
     <script>
 
+        var map = L.map('map', {
+            center: [-37.8136, 144.9631],
+            zoom: 11
+        });
+        var Esri_NatGeoWorldMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+	maxZoom: 16
+});
+        map.addLayer(Esri_NatGeoWorldMap);
  // Step 1 and 2 here
         
         var iguanaZones = [
@@ -157,8 +166,27 @@
         ]; // end iguanaShips data
         
         
+        var styleOne = {
+            color : '#83ffbc',
+            fillcolor: '#83ffbc'
+        };
+        var styleTwo = {
+            color : '#ff652c',
+            fillcolor: '#ff652c'
+        };
 //      steps 3 here
 //      steps 4-6  here
+        var iguanaGroup = L.layerGroup();
+        
+        for (i = 0; i < iguanaZones.length; i++) {
+            var iguanaData = iguanaZones[i];
+//            console.log(iguanaData);
+            var iguanaCircles = L.circle (L.latLng(iguanaData.coordinates), iguanaData.properties.size);
+//            console.log(iguanaCircles);
+            iguanaCircles.addTo(iguanaGroup);
+            iguanaGroup.addTo(map);
+        }
+        
             
         var marker;  // keep this code
        
