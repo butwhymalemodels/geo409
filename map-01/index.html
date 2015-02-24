@@ -181,7 +181,7 @@
         for (i = 0; i < iguanaZones.length; i++) {
             var iguanaData = iguanaZones[i];
 //            console.log(iguanaData);
-            var iguanaCircles = L.circle (L.latLng(iguanaData.coordinates), iguanaData.properties.size);
+            var iguanaCircles = L.circle (L.latLng(iguanaData.coordinates), iguanaData.properties.size, styleOne);
 //            console.log(iguanaCircles);
             iguanaCircles.addTo(iguanaGroup);
         }
