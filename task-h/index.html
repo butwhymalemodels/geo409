@@ -62,37 +62,631 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>So you're going to Oaxaca, Mexico?</h1>
+        <h2>Here's four places you should totally visit</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map authored by Vanessa Koenigsmark</p>
+        <p>These are super fun places to visit in Oaxaca. Its a beautiful city.</p>
+        <p>This list doesn't included restuarants because there's food everywhere. Literally everywhere there is food you can purchase. EVERYWHERE.
         </p>
     </footer>
 
     <script>
 
         var map = L.map('map', {
-            center: [38.96,-85.36],
-            zoom: 8,
+            center: [17.0750,-96.7000],
+            zoom: 12,
         });
        
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
             attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
             subdomains: '0123',
             minZoom: 4,
-            maxZoom: 12
+            maxZoom: 13
         });
         map.addLayer(tiles);
         
         // Begin writing/modifying code for Task H here
         
-
+        var oaxaca = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Monte Alban",
+        "description": "Ancient Zapotec ruins"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.76544308662415,
+          17.046342770377834
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Zocalo",
+        "description": "Main square of downtown Oaxaca"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.72534942626952,
+          17.06053860605767
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "San Maria del Tule",
+        "description": "Widest tree in the world"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.63656830787659,
+          17.046147877843897
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#555555",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "fill": "#555555",
+        "fill-opacity": 0.5,
+        "name": "Parque Benito Juarez",
+        "description": "walking path with fountain"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -96.71990990638731,
+              17.069502761364852
+            ],
+            [
+              -96.71872973442078,
+              17.069338661704045
+            ],
+            [
+              -96.71929836273193,
+              17.066979713132746
+            ],
+            [
+              -96.72034978866577,
+              17.067102789447677
+            ],
+            [
+              -96.71990990638731,
+              17.069502761364852
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#555555",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "name": "Line 1",
+        "description": "connects Zocalo and Benito Juarez"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -96.72569274902344,
+            17.061112981319297
+          ],
+          [
+            -96.72665834426878,
+            17.06135914160477
+          ],
+          [
+            -96.72648668289185,
+            17.062302753025556
+          ],
+          [
+            -96.7206072807312,
+            17.061112981319297
+          ],
+          [
+            -96.71929836273193,
+            17.066979713132746
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#555555",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "name": "line 2",
+        "description": "connects zocalo and tule"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -96.72494173049927,
+            17.060928360892195
+          ],
+          [
+            -96.72470569610596,
+            17.060907847500136
+          ],
+          [
+            -96.72416925430298,
+            17.06371816121358
+          ],
+          [
+            -96.71633720397949,
+            17.062323266264354
+          ],
+          [
+            -96.71406269073486,
+            17.061871974490366
+          ],
+          [
+            -96.71286106109618,
+            17.058630846971734
+          ],
+          [
+            -96.71303272247314,
+            17.055594803074055
+          ],
+          [
+            -96.71311855316162,
+            17.05419984743715
+          ],
+          [
+            -96.71131610870361,
+            17.055512747148537
+          ],
+          [
+            -96.70886993408203,
+            17.058507765071038
+          ],
+          [
+            -96.70723915100096,
+            17.059861661516486
+          ],
+          [
+            -96.7042350769043,
+            17.060600146348783
+          ],
+          [
+            -96.7002010345459,
+            17.061666841505183
+          ],
+          [
+            -96.6985273361206,
+            17.06211813377506
+          ],
+          [
+            -96.69479370117188,
+            17.061051441197222
+          ],
+          [
+            -96.69093132019043,
+            17.059574472181755
+          ],
+          [
+            -96.68728351593018,
+            17.058220573653866
+          ],
+          [
+            -96.68457984924315,
+            17.057276941601813
+          ],
+          [
+            -96.6785717010498,
+            17.057194886415417
+          ],
+          [
+            -96.67320728302002,
+            17.057276941601813
+          ],
+          [
+            -96.6690444946289,
+            17.058261601026214
+          ],
+          [
+            -96.66784286499023,
+            17.05842571042549
+          ],
+          [
+            -96.66372299194336,
+            17.057235914013113
+          ],
+          [
+            -96.65840148925781,
+            17.055471719172267
+          ],
+          [
+            -96.65247917175293,
+            17.05333825198601
+          ],
+          [
+            -96.64750099182129,
+            17.05087652879799
+          ],
+          [
+            -96.64578437805176,
+            17.050055947192934
+          ],
+          [
+            -96.64518356323242,
+            17.051204760430775
+          ],
+          [
+            -96.64423942565918,
+            17.050199549234016
+          ],
+          [
+            -96.64239406585693,
+            17.04907124450925
+          ],
+          [
+            -96.63975477218628,
+            17.047696755002036
+          ],
+          [
+            -96.63913249969482,
+            17.047265942776733
+          ],
+          [
+            -96.63893938064575,
+            17.04644534531405
+          ],
+          [
+            -96.63726568222046,
+            17.045665774386663
+          ],
+          [
+            -96.6362142562866,
+            17.04529650281227
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#555555",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "name": "Line 3",
+        "description": "connects zocalo to monte alban"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -96.72494173049927,
+            17.060036026254192
+          ],
+          [
+            -96.72539234161377,
+            17.057933381795007
+          ],
+          [
+            -96.72589659690857,
+            17.05557428909606
+          ],
+          [
+            -96.72698020935057,
+            17.050630354694928
+          ],
+          [
+            -96.72861099243163,
+            17.050096976358795
+          ],
+          [
+            -96.73110008239746,
+            17.049440508623842
+          ],
+          [
+            -96.73251628875732,
+            17.050055947192934
+          ],
+          [
+            -96.73453330993651,
+            17.051245789344332
+          ],
+          [
+            -96.73515558242798,
+            17.051348361588772
+          ],
+          [
+            -96.73627138137817,
+            17.051245789344332
+          ],
+          [
+            -96.73740863800049,
+            17.051163731508215
+          ],
+          [
+            -96.7382025718689,
+            17.051266303797718
+          ],
+          [
+            -96.73901796340942,
+            17.05157402032831
+          ],
+          [
+            -96.739661693573,
+            17.05194327949592
+          ],
+          [
+            -96.74028396606445,
+            17.052168937516793
+          ],
+          [
+            -96.7410135269165,
+            17.052209966218573
+          ],
+          [
+            -96.74170017242432,
+            17.052127908806003
+          ],
+          [
+            -96.74240827560425,
+            17.052333052269844
+          ],
+          [
+            -96.74292325973511,
+            17.052968995576006
+          ],
+          [
+            -96.7447257041931,
+            17.05477424219651
+          ],
+          [
+            -96.74609899520874,
+            17.056271763083927
+          ],
+          [
+            -96.74672126770018,
+            17.056620499101026
+          ],
+          [
+            -96.74742937088013,
+            17.0565999852357
+          ],
+          [
+            -96.74820184707642,
+            17.056148679628297
+          ],
+          [
+            -96.74888849258423,
+            17.055061438913743
+          ],
+          [
+            -96.74940347671509,
+            17.054507559135068
+          ],
+          [
+            -96.75028324127197,
+            17.05327670930169
+          ],
+          [
+            -96.75090551376343,
+            17.053810078558705
+          ],
+          [
+            -96.75208568572998,
+            17.052968995576006
+          ],
+          [
+            -96.75197839736937,
+            17.05194327949592
+          ],
+          [
+            -96.7527723312378,
+            17.052599738436015
+          ],
+          [
+            -96.75360918045043,
+            17.052681795641323
+          ],
+          [
+            -96.75335168838501,
+            17.05393316355556
+          ],
+          [
+            -96.75393104553221,
+            17.055328121184306
+          ],
+          [
+            -96.75448894500732,
+            17.055533261133302
+          ],
+          [
+            -96.75496101379395,
+            17.05516400906287
+          ],
+          [
+            -96.75500392913818,
+            17.054569101413815
+          ],
+          [
+            -96.7551326751709,
+            17.054322932177154
+          ],
+          [
+            -96.75616264343262,
+            17.054671671833315
+          ],
+          [
+            -96.75650596618652,
+            17.055328121184306
+          ],
+          [
+            -96.75783634185791,
+            17.055923026415606
+          ],
+          [
+            -96.75822257995604,
+            17.05645638811528
+          ],
+          [
+            -96.75897359848022,
+            17.056497415875246
+          ],
+          [
+            -96.76002502441406,
+            17.054917840610333
+          ],
+          [
+            -96.760733127594,
+            17.05499989679723
+          ],
+          [
+            -96.76088333129883,
+            17.054815270326007
+          ],
+          [
+            -96.76161289215088,
+            17.05499989679723
+          ],
+          [
+            -96.76178455352783,
+            17.055471719172267
+          ],
+          [
+            -96.761634349823,
+            17.05600508216085
+          ],
+          [
+            -96.76217079162596,
+            17.056435874231923
+          ],
+          [
+            -96.76234245300293,
+            17.058466737752774
+          ],
+          [
+            -96.76448822021483,
+            17.059697553379294
+          ],
+          [
+            -96.76523923873901,
+            17.058979578583152
+          ],
+          [
+            -96.76545381546019,
+            17.058261601026214
+          ],
+          [
+            -96.76536798477173,
+            17.0570718035682
+          ],
+          [
+            -96.76538944244385,
+            17.056312790884455
+          ],
+          [
+            -96.7650032043457,
+            17.055246065141617
+          ],
+          [
+            -96.76459550857544,
+            17.054281903939508
+          ],
+          [
+            -96.76393032073975,
+            17.05108167363607
+          ],
+          [
+            -96.7642092704773,
+            17.04950205257197
+          ],
+          [
+            -96.76425218582153,
+            17.047306972555283
+          ],
+          [
+            -96.76461696624756,
+            17.04695821915054
+          ],
+          [
+            -96.76506757736206,
+            17.047101823572493
+          ],
+          [
+            -96.76541090011597,
+            17.046322255383828
+          ]
+        ]
+      }
+    }
+  ]
+}
+        var pointOptions = {
+            color: "red"
+        }
+        var lineOptions = {
+            color: "purple"
+        }
+        var polygonOptions = {
+            color: "blue"
+        }
+        
+        var oaxacaFeatures = L.geoJson(oaxaca, {
+            pointToLayer: function(feature, latlng) {
+                return L.circle(latlng, 150);
+            },
+            style : function(feature) {
+                return { dashArray: "5, 10",
+                        weight: 3
+                       }
+            },
+            onEachFeature: function(feature, layer) {
+                if(feature.geometry.type == "Point"){
+                    layer.setStyle(pointOptions);
+                    layer.bindPopup(feature.properties.name+ "<br>" +feature.properties.description);
+                }
+                if(feature.geometry.type == "LineString") {
+                    layer.setStyle(lineOptions);
+                    layer.bindPopup(feature.properties.name+ "<br>" +feature.properties.description);
+                }
+                if(feature.geometry.type == "Polygon") {
+                    layer.setStyle(polygonOptions);
+                    layer.bindPopup(feature.properties.name+ "<br>" +feature.properties.description);
+                }
+           console.log(feature.properties.name);
+            }
+            
+        }).addTo(map);
+        
+      
+        
           
     </script>
     
