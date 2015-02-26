@@ -95,96 +95,7 @@
         var oaxaca = {
   "type": "FeatureCollection",
   "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Monte Alban",
-        "description": "Ancient Zapotec ruins"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -96.76544308662415,
-          17.046342770377834
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "Zocalo",
-        "description": "Main square of downtown Oaxaca"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -96.72534942626952,
-          17.06053860605767
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "San Maria del Tule",
-        "description": "Widest tree in the world"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -96.63656830787659,
-          17.046147877843897
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "stroke": "#555555",
-        "stroke-width": 2,
-        "stroke-opacity": 1,
-        "fill": "#555555",
-        "fill-opacity": 0.5,
-        "name": "Parque Benito Juarez",
-        "description": "walking path with fountain"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -96.71990990638731,
-              17.069502761364852
-            ],
-            [
-              -96.71872973442078,
-              17.069338661704045
-            ],
-            [
-              -96.71929836273193,
-              17.066979713132746
-            ],
-            [
-              -96.72034978866577,
-              17.067102789447677
-            ],
-            [
-              -96.71990990638731,
-              17.069502761364852
-            ]
-          ]
-        ]
-      }
-    },
+
     {
       "type": "Feature",
       "properties": {
@@ -645,7 +556,97 @@
           ]
         ]
       }
-    }
+    },
+         {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Monte Alban",
+        "description": "Ancient Zapotec ruins"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.76544308662415,
+          17.046342770377834
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "Zocalo",
+        "description": "Main square of downtown Oaxaca"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.72534942626952,
+          17.06053860605767
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "San Maria del Tule",
+        "description": "Widest tree in the world"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -96.63656830787659,
+          17.046147877843897
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#555555",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "fill": "#555555",
+        "fill-opacity": 0.5,
+        "name": "Parque Benito Juarez",
+        "description": "walking path with fountain"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -96.71990990638731,
+              17.069502761364852
+            ],
+            [
+              -96.71872973442078,
+              17.069338661704045
+            ],
+            [
+              -96.71929836273193,
+              17.066979713132746
+            ],
+            [
+              -96.72034978866577,
+              17.067102789447677
+            ],
+            [
+              -96.71990990638731,
+              17.069502761364852
+            ]
+          ]
+        ]
+      }
+    } 
   ]
 }
         var pointOptions = {
@@ -680,9 +681,7 @@
                     layer.setStyle(polygonOptions);
                     layer.bindPopup(feature.properties.name+ "<br>" +feature.properties.description);
                 }
-           console.log(feature.properties.name);
             }
-            
         }).addTo(map);
         
       
