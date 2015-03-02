@@ -67,7 +67,7 @@
     </footer>
     <script src="power-plants.js"></script>
     <script>
-
+        console.log(plants);
         var map = L.map('map', {
             center: [36,-94],
             zoom: 4,
@@ -84,54 +84,65 @@
         
         // Begin writing/modifying code for Map 2 here
         
-        plants.features.sort(function(a,b) {
-			return b.properties.capacity_mw - a.properties.capacity_mw;
-		});
-               
+//        plants.features.sort(function(a,b) {
+//			return b.properties.capacity_mw - a.properties.capacity_mw;
+//		});
+//               
+//        L.geoJson(plants, {
+//            pointToLayer: function(feature,latlng) {
+//                 return L.circleMarker(latlng, {
+//                     color: 'orange',
+//                     weight: 1,
+//                     fillColor: 'yellow',
+//                     fillOpacity: .8,
+//                     radius: getRadius(feature.properties.capacity_mw)
+//                 });   
+//            },
+//            filter: function(feature, layer) {
+//                if(feature.properties.capacity_mw >= 1752){
+//                    return feature;   
+//                }
+//            },
+//            onEachFeature: function(feature,layer) {
+//                var props = feature.properties;
+//                var content = "<b>"+props.plant_name+"</b><br>"+
+//                    props.capacity_mw.toLocaleString()+" MW<br>";
+//                var source = props.fuel_source;
+//                for(var fuel in source){
+//                    content+="<b>"+fuel+"</b>: "+source[fuel].toLocaleString()+" MW<br>";
+//                }
+//                layer.bindPopup(content); 
+//                
+//                layer.on('mouseover', function() {
+//                    layer.setStyle({
+//                        fillColor: 'red'
+//                    });
+//                });
+//                layer.on('mouseout', function() {
+//                    layer.setStyle({
+//                        fillColor: 'yellow'
+//                    });
+//                });
+//            }
+//        }).addTo(map);
+//        
+//      
+//        function getRadius(val) {
+//            var radius = Math.sqrt(val/Math.PI);
+//            return radius * .8;   
+//        }        
+        
         L.geoJson(plants, {
             pointToLayer: function(feature,latlng) {
-                 return L.circleMarker(latlng, {
-                     color: 'orange',
-                     weight: 1,
-                     fillColor: 'yellow',
-                     fillOpacity: .8,
-                     radius: getRadius(feature.properties.capacity_mw)
-                 });   
-            },
-            filter: function(feature, layer) {
-                if(feature.properties.capacity_mw >= 1752){
-                    return feature;   
-                }
-            },
-            onEachFeature: function(feature,layer) {
-                var props = feature.properties;
-                var content = "<b>"+props.plant_name+"</b><br>"+
-                    props.capacity_mw.toLocaleString()+" MW<br>";
-                var source = props.fuel_source;
-                for(var fuel in source){
-                    content+="<b>"+fuel+"</b>: "+source[fuel].toLocaleString()+" MW<br>";
-                }
-                layer.bindPopup(content); 
-                
-                layer.on('mouseover', function() {
-                    layer.setStyle({
-                        fillColor: 'red'
-                    });
-                });
-                layer.on('mouseout', function() {
-                    layer.setStyle({
-                        fillColor: 'yellow'
-                    });
+                return L.circleMarker(latlng, {
+                    color: 'orange',
+                    weight: 1,
+                    fillColor: 'yellow',
+                    fillOpacity: 1,
+                    radius: feature.properties.capacity_mw*.01
                 });
             }
         }).addTo(map);
-        
-      
-        function getRadius(val) {
-            var radius = Math.sqrt(val/Math.PI);
-            return radius * .8;   
-        }        
-        
     </script>
     
 </body>
