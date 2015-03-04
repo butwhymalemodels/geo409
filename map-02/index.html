@@ -51,19 +51,73 @@
 
 <body>
     <header>
+        <h1>Main Title</h1>
+        <h2>Subtitle</h2>
         <!-- add HTML here-->
     </header>
-
+        <div id='map'></div>
         <!-- add HTML here-->
 
     <footer>
+        <p>Map authored by Vanessa Koenigsmark</p>
+        <p>Important stuff about the map and power and stuff.</p>
+        <p>Are you not impressed? ARE YOU NOT ENTERTAINED?!?!?!?</p>
         <!-- add HTML here-->
     </footer>
-        
+        <script src="power-plants-assignment.js"></script>
         <!-- load external JS file here-->
     <script>
 
           // add JavaScript here
+//        console.log(plants);
+        var map = L.map('map', {
+            center: [36,-94],
+            zoom: 4,
+        });
+        
+        var tiles = L.tileLayer('http://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+});
+        map.addLayer(tiles);
+        plants.features.sort(function(a, b) {
+            return b.properties.capacity - a.properties.capacity;
+        });
+        console.log(plants);
+        L.geoJson(plants, {
+            pointToLayer: function(feature, latlng) {
+                return L.circleMarker(latlng, {
+                    color: 'blue',
+                    weight: 1.1,
+                    fillColor: 'green',
+                    fillOpacity: 0.75,
+                    radius: getRadius(feature.properties.source["Hydro"])
+                });
+            },
+//        coordsToLatLng: function(coords) {
+//            return L.latLng(coords);
+//        },    
+        filter: function(feature, layer) {
+            var coord = feature.geometry.coordinates;
+            
+            var knox = L.latLng(35.9728, -83.9422);
+//            var distance = coord.distanceTo(knox);
+//            var distance = getDistance(coord, knox);
+            if(feature.properties.source["Hydro"] &&
+               feature.properties.source["Hydro"] < 500) {
+                return feature;
+            }
+        }
+        }).addTo(map);
+        function getRadius(area) {
+            var radius = Math.sqrt(area/Math.PI);
+            return radius * .6;
+        }
+//        function getDistance(coord, knox) {
+//            var diff = coord.distanceTo(knox);
+//            console.log(coord);
+//            return diff;
+//        }
+//        
         
     </script>
     
