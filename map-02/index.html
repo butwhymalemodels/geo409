@@ -118,6 +118,12 @@
                 content+="<b>"+fuel+"</b>: "+source[fuel].toLocaleString()+" MW<br>";
             }
             layer.bindPopup(content);
+            layer.on ('mouseover', function () {
+                layer.openPopup();
+            });
+            layer.on('mouseout', function () {
+                layer.closePopup();
+            });
         }
         }).addTo(map);
         function getRadius(area) {
