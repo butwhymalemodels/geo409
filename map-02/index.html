@@ -97,15 +97,27 @@
 //            return L.latLng(coords);
 //        },    
         filter: function(feature, layer) {
-            var coord = feature.geometry.coordinates;
-            
+            var coord = L.latLng(feature.geometry.coordinates);
+//            console.log(coord);
             var knox = L.latLng(35.9728, -83.9422);
-//            var distance = coord.distanceTo(knox);
+            var distance = coord.distanceTo(knox);
+//            console.log(distance);
 //            var distance = getDistance(coord, knox);
             if(feature.properties.source["Hydro"] &&
-               feature.properties.source["Hydro"] < 500) {
+               feature.properties.source["Hydro"] < 500 /*&&*/
+                /*knox.distanceTo(coord) <= 400000*/){
+//                return console.log(distance);
                 return feature;
             }
+        },
+        onEachFeature: function(feature,layer) {
+            var props = feature.properties;
+            var content = "<b>"+props.plant_name+"</b><br>"+props.capacity.toLocaleString()+" MW<br>";
+            var source = props.source;
+            for(var fuel in source) {
+                content+="<b>"+fuel+"</b>: "+source[fuel].toLocaleString()+" MW<br>";
+            }
+            layer.bindPopup(content);
         }
         }).addTo(map);
         function getRadius(area) {
