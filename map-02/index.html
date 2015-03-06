@@ -97,15 +97,17 @@
 //            return L.latLng(coords);
 //        },    
         filter: function(feature, layer) {
-            var coord = L.latLng(feature.geometry.coordinates);
+            // note that leaflet expects coordinates to be [lat, lon] while coordinates in geojson are [lon, lat]
+            // so we need to switch their order here
+            var coord = L.latLng([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
 //            console.log(coord);
             var knox = L.latLng(35.9728, -83.9422);
             var distance = coord.distanceTo(knox);
 //            console.log(distance);
 //            var distance = getDistance(coord, knox);
             if(feature.properties.source["Hydro"] &&
-               feature.properties.source["Hydro"] < 500 /*&&*/
-                /*knox.distanceTo(coord) <= 400000*/){
+               feature.properties.source["Hydro"] < 500 &&
+                knox.distanceTo(coord) <= 400000){
 //                return console.log(distance);
                 return feature;
             }
