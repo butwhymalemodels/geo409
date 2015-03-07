@@ -100,13 +100,14 @@
             var coord = L.latLng(feature.geometry.coordinates);
 //            console.log(coord);
             var knox = L.latLng(35.9728, -83.9422);
-            var distance = coord.distanceTo(knox);
+//            var distance = coord.distanceTo(knox);
 //            console.log(distance);
-//            var distance = getDistance(coord, knox);
+            var distance = getDistance(coord, knox);
+            console.log(distance);
             if(feature.properties.source["Hydro"] &&
-               feature.properties.source["Hydro"] < 500 /*&&*/
-                /*knox.distanceTo(coord) <= 400000*/){
-//                return console.log(distance);
+               feature.properties.source["Hydro"] < 500 &&
+                feature[distance] < 4000000){
+                
                 return feature;
             }
         },
@@ -130,11 +131,11 @@
             var radius = Math.sqrt(area/Math.PI);
             return radius * .6;
         }
-//        function getDistance(coord, knox) {
-//            var diff = coord.distanceTo(knox);
+        function getDistance(coord, knox) {
+            var diff = coord.distanceTo(knox);
 //            console.log(coord);
-//            return diff;
-//        }
+            return diff;
+        }
 //        
         
     </script>
