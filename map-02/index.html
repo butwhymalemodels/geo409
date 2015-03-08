@@ -45,7 +45,6 @@
             color: #001323;
         }
         /* Additional style rules go here! */
-        
     </style>
 </head>
 
@@ -55,8 +54,8 @@
         <h2>Subtitle</h2>
         <!-- add HTML here-->
     </header>
-        <div id='map'></div>
-        <!-- add HTML here-->
+    <div id='map'></div>
+    <!-- add HTML here-->
 
     <footer>
         <p>Map authored by Vanessa Koenigsmark</p>
@@ -64,27 +63,27 @@
         <p>Are you not impressed? ARE YOU NOT ENTERTAINED?!?!?!?</p>
         <!-- add HTML here-->
     </footer>
-        <script src="power-plants-assignment.js"></script>
-        <!-- load external JS file here-->
+    <script src="power-plants-assignment.js"></script>
+    <!-- load external JS file here-->
     <script>
-
-          // add JavaScript here
-//        console.log(plants);
+        // add JavaScript here
+         //        console.log(plants);
         var map = L.map('map', {
-            center: [36,-94],
+            center: [36, -94],
             zoom: 4,
         });
-        
+
         var tiles = L.tileLayer('http://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png', {
-	attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-});
+            attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });
         map.addLayer(tiles);
-        plants.features.sort(function(a, b) {
+        plants.features.sort(function (a, b) {
             return b.properties.capacity - a.properties.capacity;
         });
         console.log(plants);
+        
         L.geoJson(plants, {
-            pointToLayer: function(feature, latlng) {
+            pointToLayer: function (feature, latlng) {
                 return L.circleMarker(latlng, {
                     color: 'blue',
                     weight: 1.1,
@@ -93,53 +92,58 @@
                     radius: getRadius(feature.properties.source["Hydro"])
                 });
             },
-//        coordsToLatLng: function(coords) {
-//            return L.latLng(coords);
-//        },    
-        filter: function(feature, layer) {
-            var coord = L.latLng(feature.geometry.coordinates);
-//            console.log(coord);
-            var knox = L.latLng(35.9728, -83.9422);
-//            var distance = coord.distanceTo(knox);
-//            console.log(distance);
-            var distance = getDistance(coord, knox);
-            console.log(distance);
-            if(feature.properties.source["Hydro"] &&
-               feature.properties.source["Hydro"] < 500 &&
-                feature[distance] < 4000000){
-                
-                return feature;
+            //        coordsToLatLng: function(coords) {
+            //            return L.latLng(coords);
+            //        },    
+            
+            
+            filter: function (feature, layer) {
+                var coord = L.latLng([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
+                //            console.log(coord);
+                var knox = L.latLng(35.9728, -83.9422);
+                //            var distance = coord.distanceTo(knox);
+                //            console.log(distance);
+                var distance = coord.distanceTo(knox)/1000;
+                //console.log(distance);
+                if (feature.properties.source["Hydro"] &&
+                    feature.properties.source["Hydro"] < 500 &&
+                    distance < 400) {
+
+                    return feature;
+                }
+            },
+            
+            
+            onEachFeature: function (feature, layer) {
+                var props = feature.properties;
+                var content = "<b>" + props.plant_name + "</b><br>" + props.capacity.toLocaleString() + " MW<br>";
+                var source = props.source;
+                for (var fuel in source) {
+                    content += "<b>" + fuel + "</b>: " + source[fuel].toLocaleString() + " MW<br>";
+                }
+                layer.bindPopup(content);
+                layer.on('mouseover', function () {
+                    layer.openPopup();
+                });
+                layer.on('mouseout', function () {
+                    layer.closePopup();
+                });
             }
-        },
-        onEachFeature: function(feature,layer) {
-            var props = feature.properties;
-            var content = "<b>"+props.plant_name+"</b><br>"+props.capacity.toLocaleString()+" MW<br>";
-            var source = props.source;
-            for(var fuel in source) {
-                content+="<b>"+fuel+"</b>: "+source[fuel].toLocaleString()+" MW<br>";
-            }
-            layer.bindPopup(content);
-            layer.on ('mouseover', function () {
-                layer.openPopup();
-            });
-            layer.on('mouseout', function () {
-                layer.closePopup();
-            });
-        }
         }).addTo(map);
+
         function getRadius(area) {
-            var radius = Math.sqrt(area/Math.PI);
+            var radius = Math.sqrt(area / Math.PI);
             return radius * .6;
         }
-        function getDistance(coord, knox) {
-            var diff = coord.distanceTo(knox);
-//            console.log(coord);
-            return diff;
-        }
-//        
-        
+
+//        function getDistance(coord, knox) {
+//            var diff = coord.distanceTo(knox);
+//            //            console.log(coord);
+//            return diff;
+//        }
+         //
     </script>
-    
+
 </body>
 
 </html>
