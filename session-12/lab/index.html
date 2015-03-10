@@ -68,10 +68,11 @@
         </p>
     </footer>
 
+    <script src="power-plants.js"></script>
     <script>
         var options = {
-            center: [55.653,30.608],
-            zoom: 5
+            center: [40, -85.608],
+            zoom: 4
         }
         var map = L.map('map', options);
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
@@ -83,6 +84,35 @@
         map.addLayer(tiles);
         
         // Begin writing your practice code here
+        
+        var hydroLayer = L.geoJson(plants, {
+        pointToLayer: function(feature,latlng) {
+            return L.circleMarker(latlng, {
+                color: '#1f78b4',
+                fillColor: '#1f78b4',
+                weight: 1,
+                stroke: 1,
+                fillOpacity: .8,
+                radius: getRadius(feature.properties.fuel_source["Hydro"])
+            });
+        },
+        filter: function(feature) {
+            if(feature.properties.fuel_source["Hydro"]) {
+                return feature;
+            }
+        } 
+    }).addTo(map);
+        
+        hydroLayer.eachLayer(function(layer) {
+        // code goes here
+        console.log(layer);
+    });
+        
+
+    function getRadius(val) {
+        var radius = Math.sqrt(val/Math.PI);
+        return radius * .8;   
+    }
         
 
     </script>
