@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Module 12 Lab Practice Template</title>
+    <title>Power Plant Map 03</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -55,16 +55,16 @@
 
 <body>
     <header>
-        <h1>Map Title</h1>
-        <h2>Map Subtitle</h2>
+        <h1>US Electric Power Generation</h1>
+        <h2>Coal, Hydro and Wind</h2>
     </header>
 
     <div id='map'></div>
 
     <footer>
-        <p>Map authored by YOUR NAME</p>
-        <p>Additional information about the data and map goes here.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus. Duis a elit eget risus dictum vehicula id eu elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sed enim nisl. Vestibulum commodo imperdiet lacus, sed facilisis erat placerat sit amet. Nulla consequat malesuada neque eget aliquet. Integer non convallis nisl, gravida ultrices ex. Fusce nec vestibulum elit. Sed elementum lectus ipsum, vulputate elementum ex laoreet a. Aenean eu ex varius, varius felis vitae, efficitur nulla. Quisque pretium laoreet ante, in sodales dui vehicula at. Mauris eu sem sapien.
+        <p>Map authored by Vanessa Koenigsmark</p>
+        <p>There are lots of different types of power plants in the United States.</p>
+        <p>Click once on the map to see ll the coal, hydro and wind power plants within 50 km. Double click to narrow your search to 200 km. WOW.
         </p>
     </footer>
 
@@ -92,7 +92,7 @@
             stroke:1,
             fillOpacity: .8
         }
-        console.log(plants);
+//        console.log(plants);
         
         var coalLayer = L.geoJson(plants, {
             pointToLayer: function (feature, latlng) {
@@ -130,12 +130,16 @@
             }
         }).addTo(map);
         
+        var content;
+        
         var windLayer = L.geoJson(plants, {
             pointToLayer: function (feature, latlng) {
                 return L.circleMarker(latlng, commonStyles);
             },
             filter: function(feature) {
                 if (feature.properties.source["Wind"]) {
+                    var content = feature.properties.plant_name;
+//                    console.log(content);
                     return feature;
                 }
             },
@@ -148,10 +152,13 @@
             }
         }).addTo(map);
         
+        console.log(content);
+        
+        var distance;
         map.on('click', function(e) {
             coalLayer.eachLayer(function(layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
-                console.log(distance);
+//                console.log(distance);
                 if(distance > 500) {
                     layer.setStyle({
                         stroke: false,
@@ -162,11 +169,14 @@
                         stroke: true,
                         fill: true  
                     });  
-               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
+               
+                layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
                                "km</b><br> from the click point.");
                 } 
             });
         });
+        
+        
         map.on('click', function(e) {
             hydroLayer.eachLayer(function(layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
@@ -189,7 +199,7 @@
         map.on('click', function(e) {
             windLayer.eachLayer(function(layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
-
+                console.log(distance);
                 if(distance > 500) {
                     layer.setStyle({
                         stroke: false,
@@ -284,7 +294,7 @@
             return radius * .8;   
         }
         
-
+        console.log("Hello?");
     </script>
     
 </body>
