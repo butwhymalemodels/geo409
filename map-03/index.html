@@ -68,10 +68,13 @@
         </p>
     </footer>
 
+    
+    <script src="power-plants-assignment.js"></script>
+    
     <script>
         var options = {
-            center: [55.653,30.608],
-            zoom: 5
+            center: [40, -98.5],
+            zoom: 4
         }
         var map = L.map('map', options);
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
@@ -83,6 +86,73 @@
         map.addLayer(tiles);
         
         // Begin writing your practice code here
+        var commonStyles = {
+            weight: 1,
+            stroke:1,
+            fillOpacity: .8
+        }
+        console.log(plants);
+        
+        var coalLayer = L.geoJson(plants, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, commonStyles);
+            },
+            filter: function(feature) {
+                if(feature.properties.source["Coal"]){
+                    return feature;
+                }
+            },
+            style: function(feature) {
+                return {
+                    color: '#7b1fb4',
+                    fillColor: '#7b1fb4',
+                    radius: getRadius(feature.properties.source["Coal"])
+                }
+            }
+        }).addTo(map);
+        
+        var hydroLayer = L.geoJson(plants, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, commonStyles);
+            },
+            filter: function(feature) {
+                if (feature.properties.source["Hydro"]) {
+                    return feature;
+                }
+            },
+            style: function(feature) {
+                return {
+                    color: '#1f69b4',
+                    fillColor: '#1f69b4',
+                    radius: getRadius(feature.properties.source["Hydro"])
+                }
+            }
+        }).addTo(map);
+        
+        var windLayer = L.geoJson(plants, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, commonStyles);
+            },
+            filter: function(feature) {
+                if (feature.properties.source["Wind"]) {
+                    return feature;
+                }
+            },
+            style: function(feature) {
+                return {
+                    color: '#32e685',
+                    fillColor: '#32e685',
+                    radius: getRadius(feature.properties.source["Wind"])
+                }
+            }
+        }).addTo(map);
+        
+        
+        
+        function getRadius(val) {
+            var radius = Math.sqrt(val/Math.PI);
+            return radius * .8;   
+        }
         
 
     </script>
