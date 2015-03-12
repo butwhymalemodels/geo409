@@ -138,8 +138,6 @@
             },
             filter: function(feature) {
                 if (feature.properties.source["Wind"]) {
-                    var content = feature.properties.plant_name;
-//                    console.log(content);
                     return feature;
                 }
             },
@@ -152,13 +150,12 @@
             }
         }).addTo(map);
         
-        console.log(content);
         
-        var distance;
+        
+        
         map.on('click', function(e) {
             coalLayer.eachLayer(function(layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
-//                console.log(distance);
                 if(distance > 500) {
                     layer.setStyle({
                         stroke: false,
@@ -170,8 +167,7 @@
                         fill: true  
                     });  
                
-                layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
-                               "km</b><br> from the click point.");
+                    layer.bindPopup("<b>"+layer.feature.properties.plant_name+"</b><br>Capacity: <b>"+layer.feature.properties.capacity+" MW<br>"+distance.toLocaleString()+ " km</b> from your click.");
                 } 
             });
         });
@@ -191,8 +187,7 @@
                         stroke: true,
                         fill: true  
                     });  
-               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
-                               "km</b><br> from the click point.");
+               layer.bindPopup("<b>"+layer.feature.properties.plant_name+"</b><br>Capacity: <b>"+layer.feature.properties.capacity+" MW<br>"+distance.toLocaleString()+ " km</b> from your click.");
                 } 
             });
         });
@@ -210,8 +205,7 @@
                         stroke: true,
                         fill: true  
                     });  
-               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
-                               "km</b><br> from the click point.");
+               layer.bindPopup("<b>"+layer.feature.properties.plant_name+"</b><br>Capacity: <b>"+layer.feature.properties.capacity+" MW<br>"+distance.toLocaleString()+ " km</b> from your click.");
                 } 
             });
         });
@@ -231,8 +225,7 @@
                         stroke: true,
                         fill: true  
                     });  
-               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
-                               "km</b><br> from the click point.");
+               layer.bindPopup("<b>"+layer.feature.properties.plant_name+"</b><br>Capacity: <b>"+layer.feature.properties.capacity+" MW<br>"+distance.toLocaleString()+ " km</b> from your click.");
                 } 
             });
         });       
@@ -250,8 +243,7 @@
                         stroke: true,
                         fill: true  
                     });  
-               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
-                               "km</b><br> from the click point.");
+               layer.bindPopup("<b>"+layer.feature.properties.plant_name+"</b><br>Capacity: <b>"+layer.feature.properties.capacity+" MW<br>"+distance.toLocaleString()+ " km</b> from your click.");
                 } 
             });
         });
@@ -269,8 +261,7 @@
                         stroke: true,
                         fill: true  
                     });  
-               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
-                               "km</b><br> from the click point.");
+               layer.bindPopup("<b>"+layer.feature.properties.plant_name+"</b><br>Capacity: <b>"+layer.feature.properties.capacity+" MW<br>"+distance.toLocaleString()+ " km</b> from your click.");
                 } 
             });
         });
