@@ -74,7 +74,8 @@
     <script>
         var options = {
             center: [40, -98.5],
-            zoom: 4
+            zoom: 4,
+            doubleClickZoom: false
         }
         var map = L.map('map', options);
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
@@ -147,6 +148,124 @@
             }
         }).addTo(map);
         
+        map.on('click', function(e) {
+            coalLayer.eachLayer(function(layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+                console.log(distance);
+                if(distance > 500) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });  
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true  
+                    });  
+               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
+                               "km</b><br> from the click point.");
+                } 
+            });
+        });
+        map.on('click', function(e) {
+            hydroLayer.eachLayer(function(layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+
+                if(distance > 500) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });  
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true  
+                    });  
+               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
+                               "km</b><br> from the click point.");
+                } 
+            });
+        });
+        map.on('click', function(e) {
+            windLayer.eachLayer(function(layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+
+                if(distance > 500) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });  
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true  
+                    });  
+               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
+                               "km</b><br> from the click point.");
+                } 
+            });
+        });
+        
+        
+        map.on('dblclick', function(e) {
+            coalLayer.eachLayer(function(layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+
+                if(distance > 200) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });  
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true  
+                    });  
+               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
+                               "km</b><br> from the click point.");
+                } 
+            });
+        });       
+        map.on('dblclick', function(e) {
+            hydroLayer.eachLayer(function(layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+
+                if(distance > 200) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });  
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true  
+                    });  
+               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
+                               "km</b><br> from the click point.");
+                } 
+            });
+        });
+        map.on('dblclick', function(e) {
+            windLayer.eachLayer(function(layer) {
+                var distance = e.latlng.distanceTo(layer.getLatLng())/1000;
+
+                if(distance > 200) {
+                    layer.setStyle({
+                        stroke: false,
+                        fill: false
+                    });  
+                } else {
+                    layer.setStyle({
+                        stroke: true,
+                        fill: true  
+                    });  
+               layer.bindPopup("I am <b>"+distance.toLocaleString()+ 
+                               "km</b><br> from the click point.");
+                } 
+            });
+        });
+        
+        
         
         var sourcesLayers = {
             "<b style= 'color:#7b1fb4'>Coal</b>": coalLayer,
@@ -155,6 +274,9 @@
         }
         
         L.control.layers(null, sourcesLayers, { collapsed:false }).addTo(map);
+        
+        
+        
         
         
         function getRadius(val) {
