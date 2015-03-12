@@ -148,6 +148,14 @@
         }).addTo(map);
         
         
+        var sourcesLayers = {
+            "<b style= 'color:#7b1fb4'>Coal</b>": coalLayer,
+            "<b style= 'color: #1f69b4'>Hydro</b>": hydroLayer,
+            "<b style= 'color: #32e685'>Wind</b>": windLayer
+        }
+        
+        L.control.layers(null, sourcesLayers, { collapsed:false }).addTo(map);
+        
         
         function getRadius(val) {
             var radius = Math.sqrt(val/Math.PI);
