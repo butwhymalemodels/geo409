@@ -135,7 +135,7 @@
             layer.setStyle({
                 fillColor: getColor(layer.feature.properties[attribute]/layer.feature.properties[norm],breaks)
             });
-            layer.bindPopup("<b>"+layer.feature.properties["NAME"]+"</b>");
+            layer.bindPopup("<b>"+layer.feature.properties["NAME"]+"</b><br>VACANT: "+(layer.feature.properties[attribute]/layer.feature.properties[norm]));
             console.log(layer);
         });
         drawLegend(breaks);
@@ -156,15 +156,15 @@
       
     function getColor(d, breaks) {
         if(d <= breaks[1]) {
-            return '#f1eef6';
+            return '#ffffb2';
         } else if(d <= breaks[2]) {
-            return '#bdc9e1';
+            return '#fecc5c';
         } else if(d <= breaks[3]) {
-            return '#74a9cf';
+            return '#fd8d3c';
         } else if(d <= breaks[4]) {
-            return '#2b8cbe'
+            return '#f03b20'
         } else if(d <= breaks[5]) {
-            return '#045a8d'
+            return '#bd0026'
         }
     }
    
