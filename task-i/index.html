@@ -109,8 +109,9 @@
         var map = L.map('map', options);
         
         var dataLayer,
-            attribute = "OWNED_MORT",
-            norm = "OWNER";
+            attribute = "VACANT",
+            norm = "TOTAL";
+
         
         $.getJSON("ky_counties_housing.json", function(data) {
             dataLayer = L.geoJson(data, {
@@ -134,8 +135,11 @@
             layer.setStyle({
                 fillColor: getColor(layer.feature.properties[attribute]/layer.feature.properties[norm],breaks)
             });
+            layer.bindPopup("<b>"+layer.feature.properties["NAME"]+"</b>");
+            console.log(layer);
         });
         drawLegend(breaks);
+        
     }
         
     function getClassBreaks() {
