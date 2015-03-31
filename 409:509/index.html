@@ -10,6 +10,10 @@
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    
+    <link rel="stylesheet" href="leaflet-routing-machine.css" />
+    <script src="leaflet-routing-machine.min.js"></script>
+<!--    above two: routing -->
 
     <style>
         body {
@@ -54,8 +58,10 @@
         <!-- add HTML here-->
     </header>
 
-        <!-- add HTML here-->
-
+        
+    <!-- add HTML here-->
+    <div id='map'></div>
+    
     <footer>
         <!-- add HTML here-->
     </footer>
@@ -63,7 +69,27 @@
         <!-- load external JS file here-->
     <script>
 
-          // add JavaScript here
+        // add JavaScript here
+        
+        var options = {
+            center: [38.0297, -84.4947],
+            zoom: 13
+        }
+        
+        var map = L.map('map', options);
+
+        var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        })
+        
+        map.addLayer(tiles);
+
+        L.Routing.control({
+            waypoints: [
+                L.latLng(57.74, 11.94),
+                L.latLng(57.6792, 11.949)
+            ]
+        }).addTo(map);
         
     </script>
     
