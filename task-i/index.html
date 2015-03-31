@@ -117,7 +117,7 @@
             attribute = "VACANT",
             norm = "TOTAL";
 
-        
+        //below line loads the geoJson to the index html file
         $.getJSON("ky_counties_housing.json", function(data) {
             dataLayer = L.geoJson(data, {
                 style: function(feature) {
