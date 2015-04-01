@@ -85,6 +85,16 @@
         <h2>Map Subtitle</h2>
     </header>
 
+    <div id='ui-controls'>
+     <label>Choose a data attribute:<br>
+        <select name="occupied">
+            <option value="OWNED_MORT" selected>owned with mortgage</option>
+            <option value="OWNED_FREE">owned free and clear</option> 
+            <option value="RENTER">rented</option>
+        </select>
+        </label>
+    </div>
+    
     <div id='map'></div>
 
     <footer>
@@ -126,7 +136,18 @@
             }).addTo(map);
             
             drawMap();
+            
+            drawLegend(); 
+            
+            ui();
               
+        });
+        
+        $('select[name="occupied"]').change(function() {
+
+            attribute = $(this).val();
+            drawMap();
+
         });
         
         function drawMap() {
@@ -146,7 +167,7 @@
                                 ((props[attribute]/props[norm])*100).toLocaleString());  
             });
             
-            drawLegend(breaks);
+            updateLegend(breaks);
         }
         
         function getClassBreaks() {
@@ -177,7 +198,7 @@
             }
         }
         
-        function drawLegend(breaks) {
+        function drawLegend() {
             
             var legend = L.control({position: 'topleft'});
 
@@ -185,22 +206,37 @@
                 
                 var div = L.DomUtil.create('div', 'legend');
                 
-                div.innerHTML = "<h3>" + attribute + " per " + norm + "</h3><ul>"; 
-
-                for (var i = 0; i < breaks.length-1; i++) {
-                    var color = getColor(breaks[i + 1], breaks);
-                    div.innerHTML +=
-                        '<li><span style="background:' + color + '"></span> ' +
-                        (breaks[i]*100).toLocaleString() + ' &mdash; ' + 
-                        (breaks[i + 1]*100).toLocaleString() + '</li>';
-                }
-                div.innerHTML += "</ul>"
                 return div;
                 
                     
             };
 
             legend.addTo(map);
+        }
+        
+        function ui() {
+            var dataView = L.control({position: 'topleft'});
+
+            dataView.onAdd = function(map) {
+
+                var controls = L.DomUtil.get('ui-controls');
+                return controls;
+            }
+
+            dataView.addTo(map);
+        }
+        
+        function updateLegend(breaks) {
+
+            var legend = $('.legend').html("<h3>" + attribute + "</h3><ul>"); 
+
+            for (var i = 0; i < breaks.length-1; i++) {
+                var color = getColor(breaks[i + 1], breaks);
+                legend.append('<li><span style="background:' + color + '"></span> ' +
+                    (breaks[i]*100).toLocaleString() + ' &mdash; ' + 
+                    (breaks[i + 1]*100).toLocaleString() + '</li>');
+            }
+            legend.append("</ul>");
         }
 
     </script>
