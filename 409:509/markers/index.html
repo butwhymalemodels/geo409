@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Geo409 Map 02</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- add HTML here-->
+    </header>
+
+        <!-- add HTML here-->
+
+    <footer>
+        <!-- add HTML here-->
+        <div id='map'></div>
+    </footer>
+        
+        <!-- load external JS file here-->
+    <script src="childcare.js"></script>
+    
+    <script>
+
+          // add JavaScript here
+        
+        var options = {
+            center: [38.05, -84.49],
+            zoom: 13
+        }
+        
+        var map = L.map('map', options);
+
+        var OpenStreetMap_DE = L.tileLayer('http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+});
+        
+        map.addLayer(OpenStreetMap_DE);
+        
+        var MarkerIcon = L.Icon.extend({
+            options : {
+                iconSize : [41, 49.5],
+                iconAnchor : [27, 65]
+            }
+        });
+        
+        var busIcon = new MarkerIcon({iconUrl: 'bus_marker.png'}),
+            marketIcon = new MarkerIcon({iconUrl:'market_marker.png'}),
+            hospitalIcon = new MarkerIcon({iconUrl : 'hospital_marker.png'});
+        
+        L.marker([38.070455, -84.480727], {icon: marketIcon}).addTo(map);
+        
+    </script>
+    
+</body>
+
+</html>
