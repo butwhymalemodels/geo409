@@ -62,7 +62,7 @@
     </footer>
         
         <!-- load external JS file here-->
-    <script src="childcare.js"></script>
+    <script src="childcare2.shp.geojson"></script>
     
     <script>
 
@@ -83,7 +83,7 @@
         
         var MarkerIcon = L.Icon.extend({
             options : {
-                iconSize : [41, 49.5],
+                iconSize : [32.8, 39.6],
                 iconAnchor : [27, 65]
             }
         });
@@ -95,8 +95,14 @@
         L.marker([38.070455, -84.480727], {icon: marketIcon}).addTo(map);
         
         
+        
         console.log(childcare);
-        var childLayer = L.geoJson(childcare).addTo(map);
+        
+        var childLayer = L.geoJson(childcare, {
+                pointToLayer: function (feature, latlng) {
+                    console.log(feature.geometry.coordinates);
+                    return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon:busIcon});
+            }}).addTo(map);
         
         
     </script>
