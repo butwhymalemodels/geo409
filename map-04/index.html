@@ -65,6 +65,9 @@
             color: #001323;
             margin: 0;
         }
+        .legend ul {
+            padding: 0;
+        }
         .legend li {
             list-style-type: none;
             height: 22px;
@@ -75,12 +78,38 @@
             float: left;
             margin-right: 10px;
         }
+        #ui-controls {
+            width: 176px;   
+            padding: 8px 15px 8px 15px;
+            background: rgba(75,75,75,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px; 
+            color: whitesmoke;
+        }
+        .year-slider {
+            width: 100%;
+        }
+        #ui-controls .min {
+            float: left;   
+        }
+        #ui-controls .max {
+            float: right;
+        }
+        label {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <h1>Unemployment Rates in Kentucky, by County</h1>
     <div id='map'></div>
+    <div id="ui-controls">
+        <label><span class="min">2001</span><span class="max">2013</span>
+            <input type="range" min = "2001", max= "2013", 
+               value = "2001", step= "1", class="year-slider"></input>
+        </label></div>
     
     <script>
         
@@ -178,7 +207,8 @@
                 }
              }
              }).addTo(map);
-        updateMap();
+            drawLegend(); //call drawLegend  
+            updateMap();  //call updateMap
         }
         
         function updateMap () { //define drawMap function
@@ -199,7 +229,9 @@
                     })
                 });
             });
-            drawLegend(breaks);
+            ;
+            createSliderUI();
+            updateLegend(breaks);
         }
         
         
@@ -208,7 +240,7 @@
             var values = [];
             dataLayer.eachLayer(function(layer) {
                 var value = layer.feature.properties[attribute];
-                console.log(layer.feature.properties);
+//                console.log(layer.feature.properties);
                 values.push(Number(value));
             });
             var breaks = ss.quantile(values, [0, 0.2, 0.4, 0.6, 0.8, 1]);
@@ -232,9 +264,9 @@
         }
                 
         // define function to draw the legend
-        function drawLegend(breaks){
+        function drawLegend(){
 
-        // create a new Leaflet control object, and position it top left
+        // create a new EMPTY Leaflet control object, and position it top left
             var legend = L.control({position: 'topleft'});
 
         // when the legend is added to the map
@@ -242,29 +274,6 @@
 
                 // create a new HTML <div> element and give it a class name of "legend"
                 var div = L.DomUtil.create('div', 'legend');
-
-                // first append an <h3> tag to the div holding the current attribute 
-                // and norm values (i.e., the mapped phenenomena) and begin an
-                // un-ordered list (<ul>)
-                div.innerHTML = "<h3>" + attribute + "</h3><ul>"; 
-
-            // for each of our breaks
-            for (var i = 0; i < breaks.length-1; i++) {
-                // determine the color associated with each break value,
-                // including the lower range value
-                var color = getColor(breaks[i + 1], breaks);
-
-                // concatenate a list item (<li>) to the div containing 
-                // an <i> tag styled with the color and include the range values
-                // of that particular classification group
-                div.innerHTML +=
-                    '<li><span style="background:' + color + '"></span> ' +
-                    (breaks[i]).toLocaleString() + ' &mdash; ' + 
-                    (breaks[i + 1]).toLocaleString() + '</li>';
-            }
-
-            // close the un-ordered list
-            div.innerHTML += "</ul>"
 
             // return the populated div to be added to the map
             return div;
@@ -274,9 +283,64 @@
         legend.addTo(map);
     }
         
-        // function to update the legend
+        //function to update the legend
+        function updateLegend(breaks) {
+             //populate legend with HTML labels
+            $(".legend").html("<h3>Percent Unemployed in " + attribute + "</h3><ul>"); 
+
+            // for each of our breaks
+            for (var i = 0; i < breaks.length-1; i++) {
+                // figure out the color for each break value,
+                // including the lower range value
+                var color = getColor(breaks[i + 1], breaks);
+
+                // concatenate a list item (<li>) to the div containing 
+                // an <i> tag styled with the color and include the range values
+                // of that particular classification group
+                $(".legend ul").append(
+                    '<li><span style="background:' + color + '"></span> ' +
+                    (breaks[i]) + ' &mdash; ' + 
+                    (breaks[i + 1]) + '</li>');
+            }
+
+            // close the un-ordered list
+            $(".legend").append("</ul>");
+        }
+        
 
         // function to create the range slider
+        function createSliderUI() {
+            // create a Leaflet control object and store a reference to it in a variable
+            var sliderControl = L.control({ position: 'bottomleft'} );
+
+            // when we add this control object to the map
+            sliderControl.onAdd = function(map) {
+
+                // select an existing DOM element with an id of "ui-controls"
+                var slider = L.DomUtil.get("ui-controls");
+
+                    // when the user clicks on the slider element
+                    L.DomEvent.addListener(slider, 'mousedown', function(e) { 
+
+                        // prevent the click event from bubbling up to the map
+                        L.DomEvent.stopPropagation(e); 
+
+                    });
+
+                // return the slider from the onAdd method
+                return slider;
+            }
+
+    // add the control object containing our slider element to the map
+        sliderControl.addTo(map);
+        
+        $(".year-slider")
+            .on('input change', function() {
+                attribute = $(this).val();
+                updateMap();
+            });
+        }
+
 
     </script>
     
