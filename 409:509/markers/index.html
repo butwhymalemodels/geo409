@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Geo409 Map 02</title>
+    <title>Geo509 Map</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -63,6 +63,8 @@
         
         <!-- load external JS file here-->
     <script src="childcare2.shp.geojson"></script>
+    <script src="markets.geojson"></script>
+    <script src="addresses.geojson"></script>
     
     <script>
 
@@ -79,32 +81,52 @@
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 });
         
-        map.addLayer(OpenStreetMap_DE);
+        var Stamen_Watercolor = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.{ext}', {
+	       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	       subdomains: 'abcd',
+	       minZoom: 1,
+	       maxZoom: 16,
+	       ext: 'png'
+        }); 
+        
+        map.addLayer(Stamen_Watercolor);
         
         var MarkerIcon = L.Icon.extend({
             options : {
-                iconSize : [32.8, 39.6],
+                iconSize : [38.25, 57.5],
                 iconAnchor : [27, 65]
             }
         });
         
-        var busIcon = new MarkerIcon({iconUrl: 'bus_marker.png'}),
-            marketIcon = new MarkerIcon({iconUrl:'market_marker.png'}),
-            hospitalIcon = new MarkerIcon({iconUrl : 'hospital_marker.png'});
+        var busIcon = new MarkerIcon({iconUrl: 'bus_stop.png'}),
+            marketIcon = new MarkerIcon({iconUrl:'market.png'}),
+            hospitalIcon = new MarkerIcon({iconUrl : 'hospital.png'});
+            childcareIcon = new MarkerIcon({iconUrl : 'childcare.png'});
+            employerIcon = new MarkerIcon({iconUrl : 'employers.png'});
+            pharmacyIcon = new MarkerIcon ({iconUrl : 'pharmacy.png'});
+            
         
         L.marker([38.070455, -84.480727], {icon: marketIcon}).addTo(map);
         
         
         
-        console.log(childcare);
+//        console.log(childcare);
         
         var childLayer = L.geoJson(childcare, {
                 pointToLayer: function (feature, latlng) {
-                    console.log(feature.geometry.coordinates);
-                    return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon:busIcon});
+//                    console.log(feature.geometry.coordinates);
+                    return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: childcareIcon});
             }}).addTo(map);
         
+//        console.log(markets);
+        var marketLayer = L.geoJson(markets, {
+                pointToLayer: function (feature, latlng) {
+//                    console.log(feature.geometry.coordinates);
+                    return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: marketIcon});
+            }}).addTo(map);
         
+        console.log(points);
+        var addresses = L.geoJson(points).addTo(map);
     </script>
     
 </body>

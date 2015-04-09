@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.0/papaparse.min.js"></script>
 
     <style>
         body {
@@ -24,8 +26,16 @@
             padding: 6px 10%;
         }
         h1 {
+            position: absolute;
+            z-index: 100;
+            top: 10px;
+            left: 60px;
             padding: 8px 15px;
-            margin: 0; 
+            margin: 0;
+            color: whitesmoke;
+            font-size: 1.5em;
+            background: rgba(25,25,25,0.8);
+            border-radius: 5px; 
         }
         #map {
             position: absolute;
@@ -61,12 +71,46 @@
         var map = L.map('map', options);
         
         // load map tiles and add to map
+        var Stamen_Watercolor = L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.{ext}', {
+	       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	       subdomains: 'abcd',
+	       minZoom: 1,
+	       maxZoom: 16,
+	   ext: 'png'
+        });
+        
+        map.addLayer(Stamen_Watercolor);
                 
         // declare global variables
 
         // AJAX requests to load data files
+        $.getJSON("us-states.json", function(states) {
+
+        Papa.parse('states-unemployment.csv', {
+            download: true,
+            header: true,
+            complete: function(data) {
+
+                // data is accessible to us here
+//                console.log(data);
+                processData(states, data);
+
+                // note that states is also accessible here!
+
+            }
+        }); // end of Papa.parse() 
+
+    });  // end of $.getJSON()
+       
+//        .fail(function() {
+//        // the data file failed to load
+//            console.log("Ruh roh! An error has occurred." );
+//        });
  
         // function to process/bind data
+        function processData(states, data) {
+        
+        }
 
         // function to draw the map
         

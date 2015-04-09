@@ -1,0 +1,12 @@
+var points = {
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Name": "117 Withers Ave", "lat": 38.062667, "lon": -84.477137 }, "geometry": { "type": "Point", "coordinates": [ -84.477137, 38.062667 ] } },
+{ "type": "Feature", "properties": { "Name": "518 Ohio Street", "lat": 38.048982, "lon": -84.483580 }, "geometry": { "type": "Point", "coordinates": [ -84.48358, 38.048982 ] } },
+{ "type": "Feature", "properties": { "Name": "514 Jefferson", "lat": 38.058173, "lon": -84.493903 }, "geometry": { "type": "Point", "coordinates": [ -84.493903, 38.058173 ] } },
+{ "type": "Feature", "properties": { "Name": "945 Carneal Road", "lat": 38.053866, "lon": -84.468263 }, "geometry": { "type": "Point", "coordinates": [ -84.468263, 38.053866 ] } },
+{ "type": "Feature", "properties": { "Name": "247 N Broadway", "lat": 38.051839, "lon": -84.496134 }, "geometry": { "type": "Point", "coordinates": [ -84.496134, 38.051839 ] } }
+]
+}

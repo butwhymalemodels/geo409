@@ -1,0 +1,27 @@
+var childcare = {
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "NAME": "Kids Unlimited", "ADDRESS": "1527 N Limestone", "LAT": 38.064083, "LON": -84.471748 }, "geometry": { "type": "Point", "coordinates": [ -84.471748, 38.064083 ] } },
+{ "type": "Feature", "properties": { "NAME": "Kids Cozy Cottage", "ADDRESS": "1451 Bryan Ave.", "LAT": 38.059590, "LON": -84.466303 }, "geometry": { "type": "Point", "coordinates": [ -84.466303, 38.05959 ] } },
+{ "type": "Feature", "properties": { "NAME": "Children's Spot", "ADDRESS": "1016 N Limestone", "LAT": 38.060210, "LON": -84.477350 }, "geometry": { "type": "Point", "coordinates": [ -84.47735, 38.06021 ] } },
+{ "type": "Feature", "properties": { "NAME": "Creative Child", "ADDRESS": "848 N Limestone", "LAT": 38.058043, "LON": -84.480426 }, "geometry": { "type": "Point", "coordinates": [ -84.480426, 38.058043 ] } },
+{ "type": "Feature", "properties": { "NAME": "abc123 Learning Center", "ADDRESS": "285 E 6th St.", "LAT": 38.050127, "LON": -84.482413 }, "geometry": { "type": "Point", "coordinates": [ -84.482413, 38.050127 ] } },
+{ "type": "Feature", "properties": { "NAME": "Marino's Daycare", "ADDRESS": "130 W 5th St.", "LAT": 38.052718, "LON": -84.488855 }, "geometry": { "type": "Point", "coordinates": [ -84.488855, 38.052718 ] } },
+{ "type": "Feature", "properties": { "NAME": "Jump Start", "ADDRESS": "435 Race St.", "LAT": 38.045447, "LON": -84.484108 }, "geometry": { "type": "Point", "coordinates": [ -84.484108, 38.045447 ] } },
+{ "type": "Feature", "properties": { "NAME": "Children's Treehouse", "ADDRESS": "309 Ohio St.", "LAT": 38.045701, "LON": -84.488093 }, "geometry": { "type": "Point", "coordinates": [ -84.488093, 38.045701 ] } },
+{ "type": "Feature", "properties": { "NAME": "Kidz Konnection", "ADDRESS": "1020 Industry Rd.", "LAT": 38.043001, "LON": -84.460326 }, "geometry": { "type": "Point", "coordinates": [ -84.460326, 38.043001 ] } },
+{ "type": "Feature", "properties": { "NAME": "Healthy Start", "ADDRESS": "650 Newtown Pike", "LAT": 38.065256, "LON": -84.499097 }, "geometry": { "type": "Point", "coordinates": [ -84.499097, 38.065256 ] } },
+{ "type": "Feature", "properties": { "NAME": "Our Magic Years", "ADDRESS": "866 Georgetown St.", "LAT": 38.069776, "LON": -84.504439 }, "geometry": { "type": "Point", "coordinates": [ -84.504439, 38.069776 ] } },
+{ "type": "Feature", "properties": { "NAME": "Megamindseducare", "ADDRESS": "670 Lima Dr.", "LAT": 38.073011, "LON": -84.506343 }, "geometry": { "type": "Point", "coordinates": [ -84.506343, 38.073011 ] } },
+{ "type": "Feature", "properties": { "NAME": "Growing Together", "ADDRESS": "599 Lima Dr.", "LAT": 38.072776, "LON": -84.508139 }, "geometry": { "type": "Point", "coordinates": [ -84.508139, 38.072776 ] } },
+{ "type": "Feature", "properties": { "NAME": "West End Empowerment Project", "ADDRESS": "498 Georgetown St.", "LAT": 38.062377, "LON": -84.501939 }, "geometry": { "type": "Point", "coordinates": [ -84.501939, 38.062377 ] } },
+{ "type": "Feature", "properties": { "NAME": "Quinn Chapel", "ADDRESS": "744 Charles Ave.", "LAT": 38.060150, "LON": -84.502112 }, "geometry": { "type": "Point", "coordinates": [ -84.502112, 38.06015 ] } },
+{ "type": "Feature", "properties": { "NAME": "Playhouse", "ADDRESS": "1440 N Forbes Rd.", "LAT": 38.066597, "LON": -84.519845 }, "geometry": { "type": "Point", "coordinates": [ -84.519845, 38.066597 ] } },
+{ "type": "Feature", "properties": { "NAME": "Little Rascals", "ADDRESS": "1410 N Forbes Rd.", "LAT": 38.065925, "LON": -84.519865 }, "geometry": { "type": "Point", "coordinates": [ -84.519865, 38.065925 ] } },
+{ "type": "Feature", "properties": { "NAME": "Salvation Army", "ADDRESS": "736 W Main St.", "LAT": 38.053537, "LON": -84.505179 }, "geometry": { "type": "Point", "coordinates": [ -84.505179, 38.053537 ] } },
+{ "type": "Feature", "properties": { "NAME": "Imagination Station", "ADDRESS": "585 W Main St.", "LAT": 38.051602, "LON": -84.502812 }, "geometry": { "type": "Point", "coordinates": [ -84.502812, 38.051602 ] } },
+{ "type": "Feature", "properties": { "NAME": "New Life", "ADDRESS": "224 N MLK Blvd.", "LAT": 38.043133, "LON": -84.498076 }, "geometry": { "type": "Point", "coordinates": [ -84.498076, 38.043133 ] } }
+]
+}
