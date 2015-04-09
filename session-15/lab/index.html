@@ -109,10 +109,26 @@
  
         // function to process/bind data
         function processData(states, data) {
-        
-        }
+            for (var state in states.features) {
+//                console.log(states.features[state].properties);
+                var props = states.features[state].properties;
+//                console.log(props.STATEFP);
 
+                for(var d in data.data) {
+                    if(props.STATEFP == data.data[d].STATE_FIP){
+                        states.features[state].properties = data.data[d];
+                        break;
+                    }
+//                    console.log(data.data[d].STATE_FIP);
+                }
+            }
+        console.log(states);
+        }
+        
         // function to draw the map
+        $.getJSON("us-states.json", function(data) {
+            L.geoJson(data).addTo(map);
+        });
         
         // function to update the map
         
