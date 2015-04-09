@@ -27,8 +27,16 @@
             padding: 6px 10%;
         }
         h1 {
+            position: absolute;
+            z-index: 100;
+            top: 10px;
+            left: 60px;
             padding: 8px 15px;
-            margin: 0; 
+            margin: 0;
+            color: whitesmoke;
+            font-size: 1.5em;
+            background: rgba(25,25,25,0.8);
+            border-radius: 5px; 
         }
         #map {
             position: absolute;
@@ -43,12 +51,35 @@
         p {
             font-size: 1em;
             color: #001323;
-        }   
+        }
+        .legend {
+            padding: 6px 8px;
+            font-size: 1em;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+        .legend h3 {
+            font-size: 1.1em;
+            font-weight: normal;
+            color: #001323;
+            margin: 0;
+        }
+        .legend li {
+            list-style-type: none;
+            height: 22px;
+        }
+        .legend span {
+            width: 20px;
+            height: 20px;
+            float: left;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Map Title Goes Here</h1>
+    <h1>Unemployment Rates in Kentucky, by County</h1>
     <div id='map'></div>
     
     <script>
@@ -75,8 +106,7 @@
         map.addLayer(Stamen_Watercolor);
                 
         // declare global variables
-        var attribute = "COUNTY_FIP",
-            counties,
+        var attribute = "2001",
             dataLayer;
 
         
@@ -88,13 +118,16 @@
                 complete: function(data) {
                     //loaded csv using papa parse
                     console.log(counties);
-                    console.log(data);
+                    console.log(counties);
                     processData(counties, data);
 // sent county lines and unemployment data to processData function
 
             }
         }); // end papa 
-
+            //add L.geoJson
+       
+            
+             //call function to draw chloropleth map (update)
     }); 
  
 //        // function to process/bind data
@@ -113,31 +146,60 @@
                 }
             }
             console.log(counties);
+            drawMap(counties);
         }
         
         
         
-        // function to initially draw map geometry
-        $.getJSON("ky-counties.json", function(data) {
-            dataLayer = L.geoJson(data, {
+//        // function to initially draw map geometry
+//        $.getJSON("ky-counties.json", function(data) {
+//            dataLayer = L.geoJson(data, {
+//                style: function(feature) {
+//                    return {
+//                        color: '#dddddd',
+//                        weight: 0.9,
+//                        fillOpacity: 0.8,
+//                        fillColor: '#df65b0'
+//                    }
+//                }
+//            }).addTo(map);
+//            
+//            drawMap(); //call function to draw chloropleth map (update)
+//        }); 
+        
+        function drawMap (counties){
+             dataLayer = L.geoJson(counties, {
                 style: function(feature) {
-                    return {
-                        color: '#dddddd',
-                        weight: 0.9,
-                        fillOpacity: 0.8,
-                        fillColor: '#df65b0'
-                    }
+                return {
+                    color: '#fecc5c',
+                    weight: 0.9,
+                    fillOpacity: 0.8,
+                    fillColor: '#df65b0'
                 }
-            }).addTo(map);
-            
-            drawMap(); //call function to draw chloropleth map (update)
-        });
+             }
+             }).addTo(map);
+        updateMap();
+        }
         
-        
-        
-        function drawMap () { //define drawMap function
+        function updateMap () { //define drawMap function
             var breaks = getClassBreaks();
-        
+        console.log(dataLayer);
+            dataLayer.eachLayer(function(layer){
+                layer.setStyle({
+                    fillColor: getColor(layer.feature.properties[attribute], breaks)
+                });
+                layer.on('mouseover', function(){
+                    layer.setStyle({
+                        fillColor:'#ede875'
+                    })
+                });
+                layer.on('mouseout', function() {
+                    layer.setStyle({
+                        fillColor: getColor(layer.feature.properties[attribute], breaks)
+                    })
+                });
+            });
+            drawLegend(breaks);
         }
         
         
@@ -145,9 +207,9 @@
         function getClassBreaks() {
             var values = [];
             dataLayer.eachLayer(function(layer) {
-                var value = layer.feature.properties[2000];
+                var value = layer.feature.properties[attribute];
                 console.log(layer.feature.properties);
-                values.push(value);
+                values.push(Number(value));
             });
             var breaks = ss.quantile(values, [0, 0.2, 0.4, 0.6, 0.8, 1]);
             console.log(breaks);
@@ -155,8 +217,62 @@
         }
         
         // function to get the color value
+        function getColor(attribute, breaks){
+            if(attribute <= breaks[1]) {
+                return '#f1eef6';
+            } else if(attribute <= breaks[2]) {
+                return '#d7b5d8';
+            } else if(attribute <= breaks[3]) {
+                return '#df65b0';
+            } else if(attribute <= breaks[4]) {
+                return '#dd1c77';          
+            } else if(attribute <= breaks[5]) {
+                return '#980043';
+            }
+        }
                 
-        // function to draw the legend
+        // define function to draw the legend
+        function drawLegend(breaks){
+
+        // create a new Leaflet control object, and position it top left
+            var legend = L.control({position: 'topleft'});
+
+        // when the legend is added to the map
+            legend.onAdd = function (map) {
+
+                // create a new HTML <div> element and give it a class name of "legend"
+                var div = L.DomUtil.create('div', 'legend');
+
+                // first append an <h3> tag to the div holding the current attribute 
+                // and norm values (i.e., the mapped phenenomena) and begin an
+                // un-ordered list (<ul>)
+                div.innerHTML = "<h3>" + attribute + "</h3><ul>"; 
+
+            // for each of our breaks
+            for (var i = 0; i < breaks.length-1; i++) {
+                // determine the color associated with each break value,
+                // including the lower range value
+                var color = getColor(breaks[i + 1], breaks);
+
+                // concatenate a list item (<li>) to the div containing 
+                // an <i> tag styled with the color and include the range values
+                // of that particular classification group
+                div.innerHTML +=
+                    '<li><span style="background:' + color + '"></span> ' +
+                    (breaks[i]).toLocaleString() + ' &mdash; ' + 
+                    (breaks[i + 1]).toLocaleString() + '</li>';
+            }
+
+            // close the un-ordered list
+            div.innerHTML += "</ul>"
+
+            // return the populated div to be added to the map
+            return div;
+        };
+
+        // add the legend to the map
+        legend.addTo(map);
+    }
         
         // function to update the legend
 
