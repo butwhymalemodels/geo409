@@ -99,6 +99,20 @@
             font-size: 1.1em;
             font-weight: bold;
         }
+         .info {
+            padding: 6px 8px;
+            width: 140px;
+            font-size: 1em;
+            background: rgba(25,25,25,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            text-align: right;   
+            color: whitesmoke;
+        }
+        .info h3 {
+            margin: 0;   
+        }
+        
     </style>
 </head>
 
@@ -176,6 +190,8 @@
             }
             console.log(counties);
             drawMap(counties);
+            createSliderUI();
+            drawInfo();
         }
         
         
@@ -213,15 +229,18 @@
         
         function updateMap () { //define drawMap function
             var breaks = getClassBreaks();
-        console.log(dataLayer);
+        //console.log(dataLayer);
             dataLayer.eachLayer(function(layer){
                 layer.setStyle({
                     fillColor: getColor(layer.feature.properties[attribute], breaks)
                 });
+                layer.bindPopup("<b>"+layer.feature.properties["NAME"]+" County</b></br>" +
+                                "<b>"+attribute + "</b>: " + layer.feature.properties[attribute]+"%");
                 layer.on('mouseover', function(){
                     layer.setStyle({
                         fillColor:'#ede875'
                     })
+                    updateInfo(this); 
                 });
                 layer.on('mouseout', function() {
                     layer.setStyle({
@@ -229,8 +248,16 @@
                     })
                 });
             });
-            ;
-            createSliderUI();
+             // when mousing over the map
+            dataLayer.on('mouseover', function() {
+                $(".info").show(); // display the info panel
+            });
+            
+            // when mousing off the map
+            dataLayer.on('mouseout', function() {
+                $(".info").hide();  // hide the info panel 
+            });
+            
             updateLegend(breaks);
         }
         
@@ -340,6 +367,55 @@
                 updateMap();
             });
         }
+        function drawInfo() {
+            
+            // create a new Leaflet control object and position top right
+            var info = L.control({position: 'bottomright'});
+            
+            // when adding control to map
+            info.onAdd = function(map) {
+                
+                // create a new div with class of info
+                var div = L.DomUtil.create('div', 'info');
+                
+                // return div to control object
+                return div;  
+                
+            }
+            
+            // add the empty info div to the map
+            info.addTo(map);
+            
+            // select the info panel and hide it
+            $(".info").hide();
+        }
+        
+        function updateInfo(layer) {
+            
+            // create shortcut for accessing properties
+            var props = layer.feature.properties;
+
+            // build an HTML string of relevant information about that county
+            var html = "<h3>"+props['NAME']+" County</h3>"+
+                        "2000: <b>" + props["2000"]+"</b><br>"+
+                        "2001: <b>" + props["2001"]+"</b><br>"+
+                        "2002: <b>" + props["2002"]+"</b><br>"+
+                        "2003: <b>" + props["2003"]+"</b><br>"+
+                        "2004: <b>" + props["2004"]+"</b><br>"+
+                        "2005: <b>" + props["2005"]+"</b><br>"+
+                        "2006: <b>" + props["2006"]+"</b><br>"+
+                        "2007: <b>" + props["2007"]+"</b><br>"+
+                        "2008: <b>" + props["2008"]+"</b><br>"+
+                        "2009: <b>" + props["2009"]+"</b><br>"+
+                        "2010: <b>" + props["2010"]+"</b><br>"+
+                        "2011: <b>" + props["2011"]+"</b><br>"+
+                        "2012: <b>" + props["2012"]+"</b><br>"+
+                        "2013: <b>" + props["2013"]+"</b><br>"
+            
+            // insert HTML content into empty info panel
+            $(".info").html(html);
+        }
+
 
 
     </script>
