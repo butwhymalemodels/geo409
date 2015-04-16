@@ -79,13 +79,14 @@
     
     <script src = "services_3.js"></script>
     <script src = "Stops_2.js."></script>
+    <script src = "addresses.geojson"></script>
 
     <script>
         var options = {
             center: [38.057849, -84.480684],
             zoom: 14,
-            doubleClickZoom: false,
-            dragging: false
+            doubleClickZoom: true,
+            dragging: true
         }
         var map = L.map('map', options);
         var tiles = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/normal.day.grey/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
@@ -95,14 +96,16 @@
             app_id: 'Y8m9dK2brESDPGJPdrvs',
             app_code: 'dq2MYIvjAotR8tHvY8Q_Dg',
             base: 'base',
-            minZoom: 14,
-            maxZoom: 14,            
+            minZoom: 1,
+            maxZoom: 20,            
         });
         map.addLayer(tiles);
         
         // Begin writing your practice code here
         
-        console.log(services);
+//        console.log(services);
+        
+        var testPoints = L.geoJson(points).addTo(map);
         
         var hospital = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
