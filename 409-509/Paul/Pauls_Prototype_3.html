@@ -100,7 +100,7 @@
         });
         
         var busIcon = new MarkerIcon({iconUrl: 'bus_stop.png'}),
-            marketIcon = new MarkerIcon({iconUrl:'market.png'}),
+            marketIcon = new MarkerIcon({iconUrl:'market_opacity80.png'}),
             hospitalIcon = new MarkerIcon({iconUrl : 'hospital.png'});
             childcareIcon = new MarkerIcon({iconUrl : 'childcare.png'});
             employerIcon = new MarkerIcon({iconUrl : 'employers.png'});
@@ -160,14 +160,8 @@
         
         var pharmacy = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
-                return L.circleMarker(latlng, {
-                    color: 'red',
-                    weight: 4,
-                    fillColor: 'red',
-                    fillOpacity: 0.5,
-                    radius: 10
-                });
-            },
+                return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: pharmacyIcon});
+                },
             filter: function(feature, layer) {
                 if(feature.properties.service_type == "Pharmacy"){
                     return feature;
@@ -192,13 +186,7 @@
         
         var childcare = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
-                return L.circleMarker(latlng, {
-                    color: 'purple',
-                    weight: 4,
-                    fillColor: 'purple',
-                    fillOpacity: 0.5,
-                    radius: 10
-                });
+                return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: childcareIcon});
             },
             filter: function(feature, layer) {
                 if(feature.properties.service_type == "Childcare"){
