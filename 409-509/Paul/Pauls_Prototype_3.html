@@ -69,7 +69,7 @@
     </footer>
     
     <script src = "services_3.js"></script>
-    <script src = "Stops_2.js."></script>
+    <script src = "Stops_2.js"></script>
 
     <script>
         var options = {
@@ -82,8 +82,8 @@
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
             attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
             subdomains: '0123',
-            minZoom: 14,
-            maxZoom: 14,            
+            minZoom: 12,
+            maxZoom: 20,            
         });
         map.addLayer(tiles);
         
@@ -100,7 +100,7 @@
         });
         
         var busIcon = new MarkerIcon({iconUrl: 'bus_stop.png'}),
-            marketIcon = new MarkerIcon({iconUrl:'market_opacity80.png'}),
+            marketIcon = new MarkerIcon({iconUrl:'market.png'}),
             hospitalIcon = new MarkerIcon({iconUrl : 'hospital.png'});
             childcareIcon = new MarkerIcon({iconUrl : 'childcare.png'});
             employerIcon = new MarkerIcon({iconUrl : 'employers.png'});
