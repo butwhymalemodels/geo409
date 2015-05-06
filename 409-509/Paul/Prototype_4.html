@@ -14,7 +14,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: #e4faf1;
+            background: #e4f2fa;
             font-family: Lato, sans-serif;
             color: #0D0000;
         }
@@ -80,7 +80,7 @@
     </footer>
     
     <script src = "services_3.js"></script>
-    <script src = "Stops_2.js."></script>
+    <script src = "Stops_2.js"></script>
     <script src = "addresses.geojson"></script>
 
     <script>
@@ -112,8 +112,8 @@
         
         var MarkerIcon = L.Icon.extend({
             options : {
-                iconSize : [19.1, 28.75],
-                iconAnchor : [9.55, 14]
+                iconSize : [25.6, 38.3],
+                iconAnchor : [11.5, 19]
             }
         });
         
@@ -145,28 +145,19 @@
                 var props = feature.properties;
                 var content = "<b>" +props.service_name+ "</b></br>" +props.address;
                 layer.bindPopup(content);
-                layer.on('mouseover', function() {
-                    layer.setStyle({
-                        fillColor: 'yellow'
-                    });
-                });
-                layer.on('mouseout', function() {
-                    layer.setStyle({
-                        fillColor: 'blue'
-                    });
-                });
             }                            
         }).addTo(map);
         
         var market = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
-                return L.circleMarker(latlng, {
-                    color: 'green',
-                    weight: 4,
-                    fillColor: 'green',
-                    fillOpacity: 0.5,
-                    radius: 10
+                var mMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: marketIcon});
+                mMarker.on('mouseover', function(e) {
+                    mMarker.setIcon(busIcon);
                 });
+                mMarker.on('mouseout', function(e) {
+                    mMarker.setIcon(marketIcon);
+                });
+                return mMarker
             },
             filter: function(feature, layer) {
                 if(feature.properties.service_type == "Market"){
@@ -177,28 +168,19 @@
                 var props = feature.properties;
                 var content = "<b>" +props.service_name+ "</b></br>" +props.address;
                 layer.bindPopup(content);
-                layer.on('mouseover', function() {
-                    layer.setStyle({
-                        fillColor: 'yellow'
-                    });
-                });
-                layer.on('mouseout', function() {
-                    layer.setStyle({
-                        fillColor: 'green'
-                    });
-                });
             }                            
         }).addTo(map);
         
         var pharmacy = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
-                return L.circleMarker(latlng, {
-                    color: 'red',
-                    weight: 4,
-                    fillColor: 'red',
-                    fillOpacity: 0.5,
-                    radius: 10
+                var pMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: pharmacyIcon});
+                pMarker.on('mouseover', function(e) {
+                    pMarker.setIcon(busIcon);
                 });
+                pMarker.on('mouseout', function(e) {
+                    pMarker.setIcon(pharmacyIcon);
+                });
+                return pMarker
             },
             filter: function(feature, layer) {
                 if(feature.properties.service_type == "Pharmacy"){
@@ -209,28 +191,19 @@
                 var props = feature.properties;
                 var content = "<b>" +props.service_name+ "</b></br>" +props.address;
                 layer.bindPopup(content);
-                layer.on('mouseover', function() {
-                    layer.setStyle({
-                        fillColor: 'yellow'
-                    });
-                });
-                layer.on('mouseout', function() {
-                    layer.setStyle({
-                        fillColor: 'red'
-                    });
-                });
             }                            
         }).addTo(map);
         
         var childcare = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
-                return L.circleMarker(latlng, {
-                    color: 'purple',
-                    weight: 4,
-                    fillColor: 'purple',
-                    fillOpacity: 0.5,
-                    radius: 10
+               var cMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: childcareIcon});
+                cMarker.on('mouseover', function(e) {
+                    cMarker.setIcon(busIcon);
                 });
+                cMarker.on('mouseout', function(e) {
+                    cMarker.setIcon(childcareIcon);
+                });
+                return cMarker
             },
             filter: function(feature, layer) {
                 if(feature.properties.service_type == "Childcare"){
@@ -241,16 +214,6 @@
                 var props = feature.properties;
                 var content = "<b>" +props.service_name+ "</b></br>" +props.address;
                 layer.bindPopup(content);
-                layer.on('mouseover', function() {
-                    layer.setStyle({
-                        fillColor: 'red'
-                    });
-                });
-                layer.on('mouseout', function() {
-                    layer.setStyle({
-                        fillColor: 'purple'
-                    });
-                });
             }                            
         }).addTo(map);
         
@@ -259,9 +222,9 @@
         var stops = L.geoJson(stops, {
             pointToLayer: function(feature,latlng) {
                 return L.circleMarker(latlng, {
-                    color: 'cyan',
+                    color: '#2792c1',
                     weight: 4,
-                    fillColor: 'cyan',
+                    fillColor: '#2792c1',
                     fillOpacity: 0.5,
                     radius: 5
                 });
@@ -277,12 +240,12 @@
                 layer.bindPopup(content);
                 layer.on('mouseover', function() {
                     layer.setStyle({
-                        fillColor: 'blue'
+                        fillColor: 'yellow'
                     });
                 });
                 layer.on('mouseout', function() {
                     layer.setStyle({
-                        fillColor: 'cyan'
+                        fillColor: '#196c91'
                     });
                 });
             }                            
@@ -404,11 +367,11 @@
         });
         
         var sourcesLayers = {
-        "<b style='color:blue'>Hospitals</b>": hospital,
-        "<b style='color:red'>Pharmacies</b>": pharmacy,
-        "<b style='color:green'>Groceries</b>": market,
-        "<b style='color:purple'>Childcare</b>": childcare,
-        "<b style='color:cyan; text-shadow: 0px 0px 10px #333;'>Bus Stops</b>": stops
+        "<b style='color:red'>Hospitals</b>": hospital,
+        "<b style='color:gray'>Pharmacies</b>": pharmacy,
+        "<b style='color:purple'>Groceries</b>": market,
+        "<b style='color:orange'>Childcare</b>": childcare,
+        "<b style='color:#2792c1'>Bus Stops</b>": stops
         }
 
         L.control.layers(null, sourcesLayers, { collapsed:false }).addTo(map);
