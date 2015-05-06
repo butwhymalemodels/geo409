@@ -14,7 +14,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: whitesmoke;
+            background: #e4faf1;
             font-family: Lato, sans-serif;
             color: #0D0000;
         }
@@ -31,8 +31,9 @@
             color: #001323;
         }
         #map {
+            position: absolute
             width: 80%;
-            height: 580px;
+            height: 600px;
             margin: 10px auto;
         }
         footer {
@@ -59,21 +60,22 @@
 <body>
     <header>
         <h1>GEO509</h1>
-        <h2>Services and Access Map</h2>
+        <h2>Services and Access Map   </h2>
         
-        <p>An interactive map for identifying services in Northeast Lexington and Modal Attributes associated with each service.</p>
+        <br>An interactive map for identifying services in Northeast Lexington and Modal Attributes associated with each service.
         
-        <p>Cost=Access! Per AAA, the average annual cost of maintaining a small sedan is $6957, or $19.33 per day. Via bicycling.com, the cost of maintaining a bicycle is $300 a year, or 82 cents per day. Purchasing a monthly Lextran bus pass averages to approximately $1 a day.  As such, assuming a 25mph city driving speed, access to a car cost 24 times that of a bike and reduces travel time by almost two-thirds. Buses provide longer distance access but on fixed routes and times. As for walking, almost $20 per day reduces a 3 mile trip from an hour to 7 minutes. If you can afford it.
-        </p>
         
-        <p>User Instructions: click on a location in the map boundary.  Then click on a service to discover the time associated with traveling to that service on foot, via bicycle, or automobile.
-        </p>
     </header>
 
     <div id='map'></div>
 
     <footer>
         <p class=author-info>Map authored by Koenigsmark, Lynn, and Puckett</p>
+        <p>Cost=Access! Per AAA, the average annual cost of maintaining a small sedan is $6957, or $19.33 per day. Via bicycling.com, the cost of maintaining a bicycle is $300 a year, or 82 cents per day. Purchasing a monthly Lextran bus pass averages to approximately $1 a day.  As such, assuming a 25mph city driving speed, access to a car cost 24 times that of a bike and reduces travel time by almost two-thirds. Buses provide longer distance access but on fixed routes and times. As for walking, almost $20 per day reduces a 3 mile trip from an hour to 7 minutes. If you can afford it.
+        </p>
+        
+        <p>User Instructions: click on a location in the map boundary.  Then click on a service to discover the time associated with traveling to that service on foot, via bicycle, or automobile.
+        </p>
         
     </footer>
     
@@ -85,8 +87,9 @@
         var options = {
             center: [38.057849, -84.480684],
             zoom: 14,
-            doubleClickZoom: true,
-            dragging: true
+            doubleClickZoom: false,
+            dragging: true,
+            scrollWheelZoom: false
         }
         var map = L.map('map', options);
         var tiles = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/normal.day.grey/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
@@ -96,7 +99,7 @@
             app_id: 'Y8m9dK2brESDPGJPdrvs',
             app_code: 'dq2MYIvjAotR8tHvY8Q_Dg',
             base: 'base',
-            minZoom: 1,
+            minZoom: 14,
             maxZoom: 20,            
         });
         map.addLayer(tiles);
@@ -105,17 +108,33 @@
         
 //        console.log(services);
         
-        var testPoints = L.geoJson(points).addTo(map);
+//        var testPoints = L.geoJson(points).addTo(map);
+        
+        var MarkerIcon = L.Icon.extend({
+            options : {
+                iconSize : [19.1, 28.75],
+                iconAnchor : [9.55, 14]
+            }
+        });
+        
+        var busIcon = new MarkerIcon({iconUrl: 'bus_stop.png'}),
+            marketIcon = new MarkerIcon({iconUrl:'market.png'}),
+            hospitalIcon = new MarkerIcon({iconUrl : 'hospital.png'});
+            childcareIcon = new MarkerIcon({iconUrl : 'childcare.png'});
+            employerIcon = new MarkerIcon({iconUrl : 'employers.png'});
+            pharmacyIcon = new MarkerIcon ({iconUrl : 'pharmacy.png'});
+        
         
         var hospital = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
-                return L.circleMarker(latlng, {
-                    color: 'blue',
-                    weight: 4,
-                    fillColor: 'blue',
-                    fillOpacity: 0.5,
-                    radius: 10
+                var hMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: hospitalIcon});
+                hMarker.on('mouseover', function(e) {
+                    hMarker.setIcon(busIcon);
                 });
+                hMarker.on('mouseout', function(e) {
+                    hMarker.setIcon(hospitalIcon);
+                });
+                return hMarker
             },
             filter: function(feature, layer) {
                 if(feature.properties.service_type == "Hospital"){
