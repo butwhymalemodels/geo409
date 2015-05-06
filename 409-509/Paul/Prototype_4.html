@@ -123,13 +123,16 @@
             childcareIcon = new MarkerIcon({iconUrl : 'childcare.png'});
             employerIcon = new MarkerIcon({iconUrl : 'employers.png'});
             pharmacyIcon = new MarkerIcon ({iconUrl : 'pharmacy.png'});
-        
+            marketSelectIcon = new MarkerIcon ({iconUrl : 'market_yellow.png'});
+            hospitalSelectIcon = new MarkerIcon ({iconUrl : 'hospital_yellow.png'});
+            childcareSelectIcon = new MarkerIcon ({iconUrl : 'childcare_yellow.png'});
+            pharmacySelectIcon = new MarkerIcon ({iconUrl : 'pharmacy_yellow.png'});
         
         var hospital = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
                 var hMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: hospitalIcon});
                 hMarker.on('mouseover', function(e) {
-                    hMarker.setIcon(busIcon);
+                    hMarker.setIcon(hospitalSelectIcon);
                 });
                 hMarker.on('mouseout', function(e) {
                     hMarker.setIcon(hospitalIcon);
@@ -152,7 +155,7 @@
             pointToLayer: function(feature,latlng) {
                 var mMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: marketIcon});
                 mMarker.on('mouseover', function(e) {
-                    mMarker.setIcon(busIcon);
+                    mMarker.setIcon(marketSelectIcon);
                 });
                 mMarker.on('mouseout', function(e) {
                     mMarker.setIcon(marketIcon);
@@ -175,7 +178,7 @@
             pointToLayer: function(feature,latlng) {
                 var pMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: pharmacyIcon});
                 pMarker.on('mouseover', function(e) {
-                    pMarker.setIcon(busIcon);
+                    pMarker.setIcon(pharmacySelectIcon);
                 });
                 pMarker.on('mouseout', function(e) {
                     pMarker.setIcon(pharmacyIcon);
@@ -198,7 +201,7 @@
             pointToLayer: function(feature,latlng) {
                var cMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: childcareIcon});
                 cMarker.on('mouseover', function(e) {
-                    cMarker.setIcon(busIcon);
+                    cMarker.setIcon(childcareSelectIcon);
                 });
                 cMarker.on('mouseout', function(e) {
                     cMarker.setIcon(childcareIcon);

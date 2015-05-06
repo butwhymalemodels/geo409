@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     
+<!--
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
+-->
 
     <style>
         body {
@@ -68,8 +70,8 @@
 
           // add JavaScript here
         var options = {
-            center: [40, -98.5],
-            zoom: 4,
+            center: [38.0297, -84.4947],
+            zoom: 14,
             doubleClickZoom: false
         }
         var map = L.map('map', options);
@@ -84,9 +86,32 @@
         var clickCoor
         map.on('click', function(e){
             var clickCoor = e.latlng;
-            console.log(clickCoor);
+            getCoords(clickCoor);
         });
-        console.log(clickCoor);
+        
+        
+        function getCoords(single) {
+//            console.log(single);
+                var double;
+            map.on('dblclick', function(e){
+                double = e.latlng;
+                getDistance(single, double);
+            });
+            console.log(double);
+        };
+        
+        function getDistance (single, double){
+//            console.log(double);
+            var distance = single.distanceTo(double);
+            drawCircles(single, distance);
+        };
+        
+        function drawCircles(single, distance) {
+            var carDist = distance/25;
+            var carCircle = L.circleMarker(single, {
+                radius: distance
+            });
+        };
                
     </script>
     
