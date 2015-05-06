@@ -14,7 +14,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: whitesmoke;
+            background: #cef4ff;
             font-family: Lato, sans-serif;
             color: #0D0000;
         }
@@ -74,7 +74,7 @@
         <p>Cost=Access! Per AAA, the average annual cost of maintaining a small sedan is $6957, or $19.33 per day. Via bicycling.com, the cost of maintaining a bicycle is $300 a year, or 82 cents per day. Purchasing a monthly Lextran bus pass averages to approximately $1 a day.  As such, assuming a 25mph city driving speed, access to a car cost 24 times that of a bike and reduces travel time by almost two-thirds. Buses provide longer distance access but on fixed routes and times. As for walking, almost $20 per day reduces a 3 mile trip from an hour to 7 minutes. If you can afford it.
         </p>
         
-        <p>User Instructions: click on a location in the map boundary.  Then click on a service to discover the time associated with traveling to that service on foot, via bicycle, or automobile. Double click the map to show an illustration of the area coverable within a ten minute walking distance. Refresh the browser to start over.
+        <p>User Instructions: click on a location in the map boundary.  Then click on a service to discover the time associated with traveling to that service on foot, via bicycle, or automobile. Double click the map to show an illustration of the area that falls within a ten minute walking distance. Refresh the browser to start over.
         </p>
     </footer>
     
@@ -121,7 +121,6 @@
             marketIcon = new MarkerIcon({iconUrl:'market.png'}),
             hospitalIcon = new MarkerIcon({iconUrl : 'hospital.png'});
             childcareIcon = new MarkerIcon({iconUrl : 'childcare.png'});
-            employerIcon = new MarkerIcon({iconUrl : 'employers.png'});
             pharmacyIcon = new MarkerIcon ({iconUrl : 'pharmacy.png'});
             marketSelectIcon = new MarkerIcon ({iconUrl : 'market_yellow.png'});
             hospitalSelectIcon = new MarkerIcon ({iconUrl : 'hospital_yellow.png'});
@@ -425,8 +424,8 @@
             }
             var click = e.latlng;
             walkCircle = L.circle(click, 831.5, {
-                stroke: false
-                
+                stroke: false,
+                fillColor: '#ffec00'
             }).addTo(map);
         });
         
