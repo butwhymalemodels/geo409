@@ -1,0 +1,283 @@
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>GEO 509 Services Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0b9b9;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #0c5ea2;
+        }
+        h2 {
+            display: inline-block;
+            color: #0c844d;
+        }
+        #map {
+            width: 80%;
+            height: 600px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+        
+        .popup {
+            background: green; 
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>GEO509</h1>
+        <h2>Map of Services in North East Lexington</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <IMG SRC="modes.jpg" ALT="Modes of Transport" WIDTH=484 HEIGHT=739>
+        <p>Map authored by Koenigsmark, Lynn, and Puckett</p>
+        <p>An interactive map for identifying services in Northeast Lexington and Modal Attributes associated with each service.</p>
+        <p>User Instructions: click on a location in the map boundary.  Then click on a service to discover the time and cost associated with traveling to that service on foot, via bicycle, or automobile. For areas outside the map boundary, click on a bus stop to see how long it might take to access this part of your journey. 
+        </p>
+    </footer>
+    
+    <script src = "services_3.js"></script>
+    <script src = "Stops_2.js"></script>
+
+    <script>
+        var options = {
+            center: [38.057849, -84.480684],
+            zoom: 14,
+            doubleClickZoom: false,
+            dragging: false
+        }
+        var map = L.map('map', options);
+        var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
+            attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
+            subdomains: '0123',
+<<<<<<< HEAD
+            minZoom: 04,
+            maxZoom: 24,            
+=======
+            minZoom: 12,
+            maxZoom: 20,            
+>>>>>>> origin/master
+        });
+        map.addLayer(tiles);
+        
+        // Begin writing your practice code here
+        
+        console.log(services);
+        
+        var MarkerIcon = L.Icon.extend({
+            options : {
+                iconSize : [30.8, 46],
+                iconAnchor : [9.55, 14],
+                opacity: 0.8
+            }
+        });
+        
+        var busIcon = new MarkerIcon({iconUrl: 'bus_stop.png'}),
+            marketIcon = new MarkerIcon({iconUrl:'market.png'}),
+            hospitalIcon = new MarkerIcon({iconUrl : 'hospital.png'});
+            childcareIcon = new MarkerIcon({iconUrl : 'childcare.png'});
+            employerIcon = new MarkerIcon({iconUrl : 'employers.png'});
+            pharmacyIcon = new MarkerIcon ({iconUrl : 'pharmacy.png'});
+        
+        var hospital = L.geoJson(services, {
+            pointToLayer: function(feature,latlng) {
+                return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: hospitalIcon});
+            },
+            filter: function(feature, layer) {
+                if(feature.properties.service_type == "Hospital"){
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var props = feature.properties;
+                var content = "<b>" +props.service_name+ "</b></br>" +props.address;
+                layer.bindPopup(content);
+                layer.on('mouseover', function() {
+                    layer.setStyle({
+                        fillColor: 'yellow'
+                    });
+                });
+                layer.on('mouseout', function() {
+                    layer.setStyle({
+                        fillColor: 'blue'
+                    });
+                });
+            }                            
+        }).addTo(map);
+        
+        var market = L.geoJson(services, {
+            pointToLayer: function(feature,latlng) {
+                return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: marketIcon});
+            },
+            filter: function(feature, layer) {
+                if(feature.properties.service_type == "Market"){
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var props = feature.properties;
+                var content = "<b>" +props.service_name+ "</b></br>" +props.address;
+                layer.bindPopup(content);
+                layer.on('mouseover', function() {
+                    layer.setStyle({
+                        fillColor: 'yellow'
+                    });
+                });
+                layer.on('mouseout', function() {
+                    layer.setStyle({
+                        fillColor: 'green'
+                    });
+                });
+            }                            
+        }).addTo(map);
+        
+        var pharmacy = L.geoJson(services, {
+            pointToLayer: function(feature,latlng) {
+                return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: pharmacyIcon});
+                },
+            filter: function(feature, layer) {
+                if(feature.properties.service_type == "Pharmacy"){
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var props = feature.properties;
+                var content = "<b>" +props.service_name+ "</b></br>" +props.address;
+                layer.bindPopup(content);
+                layer.on('mouseover', function() {
+                    layer.setStyle({
+                        fillColor: 'yellow'
+                    });
+                });
+                layer.on('mouseout', function() {
+                    layer.setStyle({
+                        fillColor: 'red'
+                    });
+                });
+            }                            
+        }).addTo(map);
+        
+        var childcare = L.geoJson(services, {
+            pointToLayer: function(feature,latlng) {
+                return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: childcareIcon});
+            },
+            filter: function(feature, layer) {
+                if(feature.properties.service_type == "Childcare"){
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var props = feature.properties;
+                var content = "<b>" +props.service_name+ "</b></br>" +props.address;
+                layer.bindPopup(content);
+                layer.on('mouseover', function() {
+                    layer.setStyle({
+                        fillColor: 'red'
+                    });
+                });
+                layer.on('mouseout', function() {
+                    layer.setStyle({
+                        fillColor: 'purple'
+                    });
+                });
+            }                            
+        }).addTo(map);
+        
+        console.log(stops);
+        
+        var stops = L.geoJson(stops, {
+            pointToLayer: function(feature,latlng) {
+                return L.circleMarker(latlng, {
+                    color: 'cyan',
+                    weight: 4,
+                    fillColor: 'cyan',
+                    fillOpacity: 0.5,
+                    radius: 5
+                });
+            },
+            filter: function(feature, layer) {
+                if(feature.geometry.type == "Point"){
+                    return feature;
+                }
+            },
+            onEachFeature: function(feature, layer) {
+                var props = feature.properties;
+                var content = "<b>" +props.Bus_Stop_ID+ "</b></br>" +props.Bus_Stop_Name;
+                layer.bindPopup(content);
+                layer.on('mouseover', function() {
+                    layer.setStyle({
+                        fillColor: 'blue'
+                    });
+                });
+                layer.on('mouseout', function() {
+                    layer.setStyle({
+                        fillColor: 'cyan'
+                    });
+                });
+            }                            
+        }).addTo(map);
+        
+//        map.on('click', function(e) {
+//            hospital.eachLayer(function(layer) {
+//                var distance = e.latlng.distanceTo(layer.getLatLng())/1000;  
+//                
+//                var hospitalName = layer.feature.properties.service_name;
+//                var hospitalAddress = layer.feature.properties.address;
+//                var content = "<b>"+hospitalName+"</b><br>Hydro: "+hospitalAddress+" MW<br>"+
+//                      "I am <b>"+distance.toLocaleString()+ 
+//                               "km</b><br> from the click point."  
+//                layer.bindPopup(content);
+//                    
+//                });
+//        });
+        
+        var sourcesLayers = {
+        "<b style='color:blue'>Hospitals</b>": hospital,
+        "<b style='color:red'>Pharmacies</b>": pharmacy,
+        "<b style='color:green'>Groceries</b>": market,
+        "<b style='color:purple'>Childcare</b>": childcare,
+        "<b style='color:cyan'>Bus Stops</b>": stops
+        }
+
+    L.control.layers(null, sourcesLayers, { collapsed:false }).addTo(map);
+        
+        
+        
+
+    </script>
+    
+</body>
+
+</html>

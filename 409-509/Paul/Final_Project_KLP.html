@@ -2,7 +2,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>GEO 509 Services Map</title>
+    <title>Services and Access Map</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -14,7 +14,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: #e4f2fa;
+            background: whitesmoke;
             font-family: Lato, sans-serif;
             color: #0D0000;
         }
@@ -31,9 +31,8 @@
             color: #001323;
         }
         #map {
-            position: absolute
-            width: 80%;
-            height: 600px;
+            width: 90%;
+            height: 580px;
             margin: 10px auto;
         }
         footer {
@@ -59,10 +58,10 @@
 
 <body>
     <header>
-        <h1>GEO509</h1>
-        <h2>Services and Access Map   </h2>
+        <h1>Services and Access</h1>
+        <h2>Modal Times in NE Lexington</h2>
         
-        <br>An interactive map for identifying services in Northeast Lexington and Modal Attributes associated with each service.
+        <p>An interactive map for identifying services in Northeast Lexington and Modal Attributes associated with each service.</p>
         
         
     </header>
@@ -71,19 +70,20 @@
 
     <footer>
         <p class=author-info>Map authored by Koenigsmark, Lynn, and Puckett</p>
+        
         <p>Cost=Access! Per AAA, the average annual cost of maintaining a small sedan is $6957, or $19.33 per day. Via bicycling.com, the cost of maintaining a bicycle is $300 a year, or 82 cents per day. Purchasing a monthly Lextran bus pass averages to approximately $1 a day.  As such, assuming a 25mph city driving speed, access to a car cost 24 times that of a bike and reduces travel time by almost two-thirds. Buses provide longer distance access but on fixed routes and times. As for walking, almost $20 per day reduces a 3 mile trip from an hour to 7 minutes. If you can afford it.
         </p>
         
-        <p>User Instructions: click on a location in the map boundary.  Then click on a service to discover the time associated with traveling to that service on foot, via bicycle, or automobile.
+        <p>User Instructions: click on a location in the map boundary.  Then click on a service to discover the time associated with traveling to that service on foot, via bicycle, or automobile. Double click the map to show an illustration of the area coverable within a ten minute walking distance. Refresh the browser to start over.
         </p>
-        
     </footer>
     
+<!--    load geoJSON files used in this project-->
     <script src = "services_3.js"></script>
     <script src = "Stops_2.js"></script>
-    <script src = "addresses.geojson"></script>
 
     <script>
+//        set map options to lock user to focus area in northeast Lexington
         var options = {
             center: [38.057849, -84.480684],
             zoom: 14,
@@ -91,7 +91,11 @@
             dragging: true,
             scrollWheelZoom: false
         }
+        
+//        define map variable and connect it to div space in html code above
         var map = L.map('map', options);
+        
+//        define tile layer used in this map
         var tiles = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/maptile/{mapID}/normal.day.grey/{z}/{x}/{y}/256/png8?app_id={app_id}&app_code={app_code}', {
             attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
             subdomains: '1234',
@@ -100,17 +104,13 @@
             app_code: 'dq2MYIvjAotR8tHvY8Q_Dg',
             base: 'base',
             minZoom: 14,
-            maxZoom: 20,            
+            maxZoom: 14,            
         });
         map.addLayer(tiles);
         
-        // Begin writing your practice code here
-        
 //        console.log(services);
         
-//        var testPoints = L.geoJson(points).addTo(map);
-        
-        var MarkerIcon = L.Icon.extend({
+         var MarkerIcon = L.Icon.extend({
             options : {
                 iconSize : [25.6, 38.3],
                 iconAnchor : [11.5, 19]
@@ -128,6 +128,7 @@
             childcareSelectIcon = new MarkerIcon ({iconUrl : 'childcare_yellow.png'});
             pharmacySelectIcon = new MarkerIcon ({iconUrl : 'pharmacy_yellow.png'});
         
+//        locate hospital objects in services_3 geoJSON, add them to map, with popup info available
         var hospital = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
                 var hMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: hospitalIcon});
@@ -151,6 +152,7 @@
             }                            
         }).addTo(map);
         
+//        locate market objects in services_3 geoJSON, add them to map, with popup info available
         var market = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
                 var mMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: marketIcon});
@@ -174,7 +176,8 @@
             }                            
         }).addTo(map);
         
-        var pharmacy = L.geoJson(services, {
+//        locate pharmacy objects in services_3 geoJSON, add them to map, with popup info available        
+       var pharmacy = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
                 var pMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: pharmacyIcon});
                 pMarker.on('mouseover', function(e) {
@@ -197,6 +200,7 @@
             }                            
         }).addTo(map);
         
+//        locate childcare objects in services_3 geoJSON, add them to map, with popup info available        
         var childcare = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
                var cMarker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: childcareIcon});
@@ -222,6 +226,7 @@
         
         console.log(stops);
         
+//        locate bus stop objects in Stops_2 geoJSON, add them to map, with popup info available        
         var stops = L.geoJson(stops, {
             pointToLayer: function(feature,latlng) {
                 return L.circleMarker(latlng, {
@@ -232,23 +237,27 @@
                     radius: 5
                 });
             },
+//            filter by geometry type within Stops_2 geoJSON            
             filter: function(feature, layer) {
                 if(feature.geometry.type == "Point"){
                     return feature;
                 }
             },
+//            create popup feature for site information with user affordance in contrasting color            
             onEachFeature: function(feature, layer) {
                 var props = feature.properties;
                 var content = "<b>Bus Stop # " +props.Bus_Stop_ID+ "</b></br>" +props.Bus_Stop_Name;
                 layer.bindPopup(content);
                 layer.on('mouseover', function() {
                     layer.setStyle({
-                        fillColor: 'yellow'
+                        fillColor: 'yellow',
+                        color:'yellow'
                     });
                 });
                 layer.on('mouseout', function() {
                     layer.setStyle({
-                        fillColor: '#196c91'
+                        fillColor: '#2792c1',
+                        color: '#2792c1'
                     });
                 });
             }                            
@@ -277,6 +286,7 @@
                 });
         });
         
+//        calculator for distance (in miles) and time (in minutes) to service with popup showing those values
         map.on('click', function(e) {
             market.eachLayer(function(layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng())*(0.000621371);
@@ -300,6 +310,7 @@
                 });
         });
         
+//        calculator for distance (in miles) and time (in minutes) to service with popup showing those values        
         map.on('click', function(e) {
             pharmacy.eachLayer(function(layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng())*(0.000621371);
@@ -323,6 +334,7 @@
                 });
         });
         
+//        calculator for distance (in miles) and time (in minutes) to service with popup showing those values        
         map.on('click', function(e) {
             childcare.eachLayer(function(layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng())*(0.000621371);
@@ -346,6 +358,7 @@
                 });
         });
         
+//        calculator for distance (in miles) and time (in minutes) to service with popup showing those values        
         map.on('click', function(e) {
             stops.eachLayer(function(layer) {
                 var distance = e.latlng.distanceTo(layer.getLatLng())*(0.000621371);
@@ -356,7 +369,7 @@
                 
                 var stopsName = layer.feature.properties.Bus_Stop_ID;
                 var stopsAddress = layer.feature.properties.Bus_Stop_Name;
-                var content = "<b>"+stopsName+":</b><br>"+stopsAddress+"<br>"+
+                var content = "<b>Bus Stop # "+stopsName+":</b><br>"+stopsAddress+"<br>"+
                                 "You are <b>"+distance.toLocaleString()+ 
                                "miles</b> from the click point.</br>"+
                                 "This trip would take</br>"+
@@ -369,6 +382,7 @@
                 });
         });
         
+//        create legend with layters that can be turned on and off in common color schemes to the geoJSON objects
         var sourcesLayers = {
         "<b style='color:red'>Hospitals</b>": hospital,
         "<b style='color:gray'>Pharmacies</b>": pharmacy,
@@ -379,6 +393,7 @@
 
         L.control.layers(null, sourcesLayers, { collapsed:false }).addTo(map);
         
+//        create marker for user when clicking on single point in map, will be used for distance calcs above
         var marker;
         var walkCircle;
         

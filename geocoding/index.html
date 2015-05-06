@@ -83,37 +83,62 @@
         });
         map.addLayer(tiles);
         
-        var clickCoor
-        map.on('click', function(e){
-            var clickCoor = e.latlng;
-            getCoords(clickCoor);
-        });
-        
-        
-        function getCoords(single) {
+//        var clickCoor
+//        map.on('click', function(e){
+//            clickCoor = e.latlng;
+//            getCoords(clickCoor);
+//        });
+//        
+//        var double;
+//        var first;
+//        function getCoords(single) {
+////            console.log(single);
+//            first = single;
+//                
+//            map.on('dblclick', function(e){
+//                double = e.latlng;
+//                getDistance(first, double);
+////                console.log(first);
+//            });
+////            console.log(double);
+//        };
+//        
+//        function getDistance (single, double){
 //            console.log(single);
-                var double;
-            map.on('dblclick', function(e){
-                double = e.latlng;
-                getDistance(single, double);
-            });
-            console.log(double);
-        };
-        
-        function getDistance (single, double){
 //            console.log(double);
-            var distance = single.distanceTo(double);
-            drawCircles(single, distance);
-        };
+//            var distance = single.distanceTo(double);
+//            drawCircles(single, distance);
+//        };
+//        
+//        function drawCircles(single, distance) {
+//            var carDist = distance/25;
+//            var carCircle = L.circleMarker(single, {
+//                radius: distance
+//            });
+//        };
         
-        function drawCircles(single, distance) {
-            var carDist = distance/25;
-            var carCircle = L.circleMarker(single, {
-                radius: distance
-            });
-        };
+//        
+//       var first;
+//       var second;
+//        
+////        function clickEvent() {
+////        map.on('dbl
+////        };
+//        
+//        function getCoords() {
+//            map.on('click', function(e){
+//            first = e.latlng;
+//        });
+//            map.on('dblclick', function(e){
+//                console.log(first);
+//                second = e.latlng;
+//        });
+////            console.log(first);
+//        };
+//        
         
         var marker;
+        var walkCircle;
         
        // when the user clicks on the map
         map.on('click', function(e) { 
@@ -131,10 +156,23 @@
             // to the existing variable marker
             marker = L.marker(clickCoords).addTo(map);
             
+            
+            
             // call the function and pass the marker's coords
 //            testDistance(clickCoords);
         
         });
+        map.on('dblclick', function(e) {
+            if(map.hasLayer(walkCircle)) {
+                map.removeLayer(walkCircle);
+            }
+            var click = e.latlng;
+            walkCircle = L.circle(click, 831.5, {
+                stroke: false
+                
+            }).addTo(map);
+        })
+        
                
     </script>
     
