@@ -112,6 +112,29 @@
                 radius: distance
             });
         };
+        
+        var marker;
+        
+       // when the user clicks on the map
+        map.on('click', function(e) { 
+            // if the marker exists and is defined
+            if(map.hasLayer(marker)) { 
+               // remove it from the map
+                map.removeLayer(marker);
+            }
+            
+            // store the click coordinates in a variable
+            var clickCoords = e.latlng; 
+            
+            // create a marker using those coods, 
+            // add it to the map and assign it
+            // to the existing variable marker
+            marker = L.marker(clickCoords).addTo(map);
+            
+            // call the function and pass the marker's coords
+//            testDistance(clickCoords);
+        
+        });
                
     </script>
     

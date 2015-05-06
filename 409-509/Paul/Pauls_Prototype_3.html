@@ -69,7 +69,7 @@
     </footer>
     
     <script src = "services_3.js"></script>
-    <script src = "Stops_2.js."></script>
+    <script src = "Stops_2.js"></script>
 
     <script>
         var options = {
@@ -82,8 +82,13 @@
         var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
             attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
             subdomains: '0123',
+<<<<<<< HEAD
             minZoom: 04,
             maxZoom: 24,            
+=======
+            minZoom: 12,
+            maxZoom: 20,            
+>>>>>>> origin/master
         });
         map.addLayer(tiles);
         
@@ -93,8 +98,9 @@
         
         var MarkerIcon = L.Icon.extend({
             options : {
-                iconSize : [19.1, 28.75],
-                iconAnchor : [9.55, 14]
+                iconSize : [30.8, 46],
+                iconAnchor : [9.55, 14],
+                opacity: 0.8
             }
         });
         
@@ -159,14 +165,8 @@
         
         var pharmacy = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
-                return L.circleMarker(latlng, {
-                    color: 'red',
-                    weight: 4,
-                    fillColor: 'red',
-                    fillOpacity: 0.5,
-                    radius: 10
-                });
-            },
+                return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: pharmacyIcon});
+                },
             filter: function(feature, layer) {
                 if(feature.properties.service_type == "Pharmacy"){
                     return feature;
@@ -191,13 +191,7 @@
         
         var childcare = L.geoJson(services, {
             pointToLayer: function(feature,latlng) {
-                return L.circleMarker(latlng, {
-                    color: 'purple',
-                    weight: 4,
-                    fillColor: 'purple',
-                    fillOpacity: 0.5,
-                    radius: 10
-                });
+                return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {icon: childcareIcon});
             },
             filter: function(feature, layer) {
                 if(feature.properties.service_type == "Childcare"){
